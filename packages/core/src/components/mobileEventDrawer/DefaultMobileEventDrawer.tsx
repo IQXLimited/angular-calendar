@@ -7,7 +7,6 @@ import {
   CalendarOption,
 } from "@/components/common/CalendarPicker";
 import { MiniCalendar } from "@/components/common/MiniCalendar";
-import { useLocale } from "@/locale";
 import {
   Event as CalendarEvent,
   MobileEventProps,
@@ -27,7 +26,6 @@ export const MobileEventDrawer = ({
   draftEvent,
   app,
 }: MobileEventProps) => {
-  const { locale, t } = useLocale();
   const readOnlyConfig = app.getReadOnlyConfig();
   const isEditable = !app.state.readOnly;
   const isViewable = readOnlyConfig.viewable !== false;
@@ -226,7 +224,7 @@ export const MobileEventDrawer = ({
   };
 
   const formatDate = (date: Date) =>
-    date.toLocaleDateString(locale, {
+    date.toLocaleDateString(undefined, {
       day: "numeric",
       month: "short",
       year: "numeric",
@@ -304,14 +302,14 @@ export const MobileEventDrawer = ({
             onClick={onClose}
             className="px-2 py-1 text-gray-500 hover:text-gray-700"
           >
-            {t("cancel")}
+            Cancel
           </button>
           <span className="text-lg font-semibold">
             {!isEditable && isEditing
-              ? t("viewEvent")
+              ? "View Event"
               : isEditing
-                ? t("editEvent")
-                : t("newEvent")}
+                ? "Edit Event"
+                : "New Event"}
           </span>
           {isEditable && (
             <button
@@ -324,7 +322,7 @@ export const MobileEventDrawer = ({
                   : "cursor-not-allowed text-gray-400 opacity-50"
               }`}
             >
-              {isEditing ? t("done") : t("create")}
+              {isEditing ? "Done" : "Create"}
             </button>
           )}
           {!isEditable && <span className="w-12" />}
@@ -335,7 +333,7 @@ export const MobileEventDrawer = ({
           <div className="rounded-lg bg-white px-4 py-3 dark:bg-gray-900">
             <input
               type="text"
-              placeholder={t("titlePlaceholder")}
+              placeholder={"Title"}
               value={title}
               onChange={(
                 e: JSX.TargetedEvent<HTMLInputElement, globalThis.Event>,
@@ -350,7 +348,7 @@ export const MobileEventDrawer = ({
           {calendars.length > 0 && (
             <div className="relative flex items-center justify-between rounded-lg bg-white px-4 py-3 dark:bg-gray-900">
               <span className="text-gray-700 dark:text-gray-300">
-                {t("calendar")}
+                Calendar
               </span>
               <CalendarPicker
                 options={calendarOptions}
@@ -372,7 +370,7 @@ export const MobileEventDrawer = ({
           {/* All-day */}
           <div className="flex items-center justify-between rounded-lg bg-white px-4 py-3 dark:bg-gray-900">
             <span className="text-gray-700 dark:text-gray-300">
-              {t("allDay")}
+              All day
             </span>
             <Switch
               checked={isAllDay}
@@ -391,7 +389,7 @@ export const MobileEventDrawer = ({
           <div className="overflow-hidden rounded-lg bg-white dark:bg-gray-900">
             <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3 last:border-0 dark:border-gray-800">
               <span className="text-gray-700 dark:text-gray-300">
-                {t("starts")}
+                Starts
               </span>
               <div className="flex space-x-2">
                 <button
@@ -446,7 +444,7 @@ export const MobileEventDrawer = ({
           <div className="overflow-hidden rounded-lg bg-white dark:bg-gray-900">
             <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3 last:border-0 dark:border-gray-800">
               <span className="text-gray-700 dark:text-gray-300">
-                {t("ends")}
+                Ends
               </span>
               <div className="flex space-x-2">
                 <button
@@ -497,7 +495,7 @@ export const MobileEventDrawer = ({
           {/* Notes */}
           <div className="rounded-lg bg-white px-4 py-3 dark:bg-gray-900">
             <textarea
-              placeholder={t("notesPlaceholder")}
+              placeholder="Notes"
               value={notes}
               onChange={(
                 e: JSX.TargetedEvent<HTMLTextAreaElement, globalThis.Event>,
@@ -514,7 +512,7 @@ export const MobileEventDrawer = ({
               onClick={() => onEventDelete(draftEvent.id)}
               className="w-full rounded-lg bg-white px-4 py-3 text-left font-medium text-red-500 dark:bg-gray-900"
             >
-              {t("delete")}
+              Delete
             </button>
           )}
         </div>

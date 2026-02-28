@@ -3,10 +3,8 @@
 <div style="display: none">
   @for (rendering of customRenderings(); track rendering.id) {
     @if (getTemplate(rendering.generatorName); as template) {
-      <div [appDayflowPortal]="rendering.containerEl">
-        <ng-container
-          *ngTemplateOutlet="template; context: { $implicit: rendering.generatorArgs }"
-        />
+      <div [appPortal]="rendering.containerEl">
+        <ng-container *ngTemplateOutlet="template; context: { $implicit: rendering.generatorArgs }" />
       </div>
     }
   }

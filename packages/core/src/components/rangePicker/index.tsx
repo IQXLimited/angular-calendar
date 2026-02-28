@@ -37,29 +37,16 @@ const RangePicker = ({
   placement = "bottomLeft",
   autoAdjustOverflow = true,
   getPopupContainer,
-  matchTriggerWidth = false,
-  locale = "en-US",
+  matchTriggerWidth = false
 }: RangePickerProps) => {
-  const localeCode = useMemo(
-    () => (typeof locale === "string" ? locale : locale?.code || "en-US"),
-    [locale],
-  );
-
   const isTimeEnabled = useMemo(() => {
     if (showTime === undefined) return true;
     if (typeof showTime === "object") return true;
     return Boolean(showTime);
   }, [showTime]);
 
-  const monthLabels = useMemo(
-    () => getMonthLabels(localeCode, "short"),
-    [localeCode],
-  );
-
-  const weekDayLabels = useMemo(
-    () => getWeekDaysLabels(localeCode, "narrow"),
-    [localeCode],
-  );
+  const monthLabels = getMonthLabels("short");
+  const weekDayLabels = getWeekDaysLabels("narrow");
 
   const effectiveTimeFormat = useMemo(() => {
     if (!isTimeEnabled) {

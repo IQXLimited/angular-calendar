@@ -17,9 +17,6 @@ import { MobileEventDrawer } from "@/components/mobileEventDrawer";
 import MobileSearchDialog from "@/components/search/MobileSearchDialog";
 import SearchDrawer from "@/components/search/SearchDrawer";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import { LocaleProvider } from "@/locale/LocaleProvider";
-import { LocaleCode, Locale, LocaleMessages } from "@/locale/types";
-import { useLocale } from "@/locale/useLocale";
 import { useSidebarBridge } from "@/plugins/sidebarBridge";
 import {
   EventDetailContentRenderer,
@@ -44,7 +41,6 @@ interface CalendarRootProps {
   customDetailPanelContent?: EventDetailContentRenderer;
   customEventDetailDialog?: EventDetailDialogRenderer;
   meta?: Record<string, unknown>;
-  customMessages?: LocaleMessages;
   search?: CalendarSearchProps;
   titleBarSlot?:
     | TNode
@@ -55,37 +51,11 @@ interface CalendarRootProps {
   collapsedSafeAreaLeft?: number;
 }
 
-// Internal locale gate — only wraps with LocaleProvider when no parent
-// provider is already present (e.g. when used inside an Angular adapter
-// that sets up its own locale context).
-const CalendarInternalLocaleProvider = ({
-  locale,
-  messages,
-  children,
-}: {
-  locale: LocaleCode | Locale;
-  messages?: LocaleMessages;
-  children: ComponentChildren;
-}) => {
-  const context = useLocale();
-
-  if (!context.isDefault) {
-    return children;
-  }
-
-  return (
-    <LocaleProvider locale={locale} messages={messages}>
-      {children}
-    </LocaleProvider>
-  );
-};
-
 export const CalendarRoot = ({
   app,
   customDetailPanelContent,
   customEventDetailDialog,
   meta,
-  customMessages,
   search: searchConfig,
   titleBarSlot,
   collapsedSafeAreaLeft,
@@ -270,121 +240,116 @@ export const CalendarRoot = ({
 
   return (
     <ThemeProvider initialTheme={theme} onThemeChange={handleThemeChange}>
-      <CalendarInternalLocaleProvider
-        locale={app.state.locale}
-        messages={customMessages}
-      >
-        <div className="df-calendar-container relative flex flex-row overflow-hidden select-none">
-          <ContentSlot
-            store={customRenderingStore}
-            generatorName="titleBarSlot"
-            generatorArgs={titleBarSlotArgs}
-            defaultContent={
-              titleBarSlot &&
-              (typeof titleBarSlot === "function"
-                ? titleBarSlot(titleBarSlotArgs)
-                : titleBarSlot)
-            }
-          />
+      <div className="df-calendar-container relative flex flex-row overflow-hidden select-none">
+        <ContentSlot
+          store={customRenderingStore}
+          generatorName="titleBarSlot"
+          generatorArgs={titleBarSlotArgs}
+          defaultContent={
+            titleBarSlot &&
+            (typeof titleBarSlot === "function"
+              ? titleBarSlot(titleBarSlotArgs)
+              : titleBarSlot)
+          }
+        />
 
-          {sidebar.enabled && (
-            <aside
-              className="absolute top-0 bottom-0 left-0 z-0 h-full"
-              style={{ width: sidebar.width }}
-            >
-              {sidebar.content}
-            </aside>
-          )}
-
-          <div
-            className={`relative z-10 flex h-full flex-1 flex-col overflow-hidden border-l bg-white transition-all duration-250 ease-in-out dark:bg-gray-900 ${sidebar.isCollapsed ? "border-gray-200 shadow-xl dark:border-gray-700" : "border-transparent"}`}
-            style={{
-              marginLeft: sidebar.enabled
-                ? sidebar.isCollapsed
-                  ? miniSidebarWidth
-                  : sidebar.width
-                : 0,
-            }}
+        {sidebar.enabled && (
+          <aside
+            className="absolute top-0 bottom-0 left-0 z-0 h-full"
+            style={{ width: sidebar.width }}
           >
-            {renderHeader()}
+            {sidebar.content}
+          </aside>
+        )}
 
-            <div className="relative flex-1 overflow-hidden" ref={calendarRef}>
-              <div className="calendar-renderer relative flex h-full flex-row">
-                <div className="h-full flex-1 overflow-hidden">
-                  <ViewComponent {...viewProps} />
-                </div>
+        <div
+          className={`relative z-10 flex h-full flex-1 flex-col overflow-hidden border-l bg-white transition-all duration-250 ease-in-out dark:bg-gray-900 ${sidebar.isCollapsed ? "border-gray-200 shadow-xl dark:border-gray-700" : "border-transparent"}`}
+          style={{
+            marginLeft: sidebar.enabled
+              ? sidebar.isCollapsed
+                ? miniSidebarWidth
+                : sidebar.width
+              : 0,
+          }}
+        >
+          {renderHeader()}
 
-                <SearchDrawer
-                  isOpen={search.isSearchOpen}
-                  onClose={search.handleSearchClose}
-                  loading={search.searchLoading}
-                  results={search.searchResults}
-                  keyword={search.searchKeyword}
-                  onResultClick={search.handleSearchResultClick}
-                  emptyText={searchConfig?.emptyText}
-                />
+          <div className="relative flex-1 overflow-hidden" ref={calendarRef}>
+            <div className="calendar-renderer relative flex h-full flex-row">
+              <div className="h-full flex-1 overflow-hidden">
+                <ViewComponent {...viewProps} />
               </div>
 
-              <MobileSearchDialog
-                isOpen={search.isMobileSearchOpen}
-                onClose={search.handleMobileSearchClose}
-                keyword={search.searchKeyword}
-                onSearchChange={search.setSearchKeyword}
-                results={search.searchResults}
+              <SearchDrawer
+                isOpen={search.isSearchOpen}
+                onClose={search.handleSearchClose}
                 loading={search.searchLoading}
+                results={search.searchResults}
+                keyword={search.searchKeyword}
                 onResultClick={search.handleSearchResultClick}
                 emptyText={searchConfig?.emptyText}
               />
             </div>
-          </div>
 
-          <QuickCreateEventPopup
-            app={app}
-            anchorRef={quickCreate.quickCreateAnchorRef}
-            isOpen={quickCreate.isQuickCreateOpen}
-            onClose={() => quickCreate.setIsQuickCreateOpen(false)}
-          />
-
-          <MobileEventDrawerComponent
-            isOpen={quickCreate.isMobileDrawerOpen}
-            onClose={() => {
-              quickCreate.setIsMobileDrawerOpen(false);
-              quickCreate.setMobileDraftEvent(null);
-            }}
-            onSave={(event: CalendarEvent) => {
-              const exists = app
-                .getEvents()
-                .some((e: CalendarEvent) => e.id === event.id);
-              if (exists) {
-                app.updateEvent(event.id, event);
-              } else {
-                app.addEvent(event);
-              }
-              quickCreate.setIsMobileDrawerOpen(false);
-              quickCreate.setMobileDraftEvent(null);
-            }}
-            onEventDelete={(id: string) => {
-              app.deleteEvent(id);
-              quickCreate.setIsMobileDrawerOpen(false);
-              quickCreate.setMobileDraftEvent(null);
-            }}
-            draftEvent={quickCreate.mobileDraftEvent}
-            app={app}
-          />
-
-          {sidebar.extraContent}
-          {quickCreate.isCreateCalendarOpen && (
-            <CreateCalendarDialog
-              onClose={() => quickCreate.setIsCreateCalendarOpen(false)}
-              onCreate={(calendar) => {
-                app.createCalendar(calendar);
-                quickCreate.setIsCreateCalendarOpen(false);
-              }}
+            <MobileSearchDialog
+              isOpen={search.isMobileSearchOpen}
+              onClose={search.handleMobileSearchClose}
+              keyword={search.searchKeyword}
+              onSearchChange={search.setSearchKeyword}
+              results={search.searchResults}
+              loading={search.searchLoading}
+              onResultClick={search.handleSearchResultClick}
+              emptyText={searchConfig?.emptyText}
             />
-          )}
-          {renderEventDetailDialog()}
+          </div>
         </div>
-      </CalendarInternalLocaleProvider>
+
+        <QuickCreateEventPopup
+          app={app}
+          anchorRef={quickCreate.quickCreateAnchorRef}
+          isOpen={quickCreate.isQuickCreateOpen}
+          onClose={() => quickCreate.setIsQuickCreateOpen(false)}
+        />
+
+        <MobileEventDrawerComponent
+          isOpen={quickCreate.isMobileDrawerOpen}
+          onClose={() => {
+            quickCreate.setIsMobileDrawerOpen(false);
+            quickCreate.setMobileDraftEvent(null);
+          }}
+          onSave={(event: CalendarEvent) => {
+            const exists = app
+              .getEvents()
+              .some((e: CalendarEvent) => e.id === event.id);
+            if (exists) {
+              app.updateEvent(event.id, event);
+            } else {
+              app.addEvent(event);
+            }
+            quickCreate.setIsMobileDrawerOpen(false);
+            quickCreate.setMobileDraftEvent(null);
+          }}
+          onEventDelete={(id: string) => {
+            app.deleteEvent(id);
+            quickCreate.setIsMobileDrawerOpen(false);
+            quickCreate.setMobileDraftEvent(null);
+          }}
+          draftEvent={quickCreate.mobileDraftEvent}
+          app={app}
+        />
+
+        {sidebar.extraContent}
+        {quickCreate.isCreateCalendarOpen && (
+          <CreateCalendarDialog
+            onClose={() => quickCreate.setIsCreateCalendarOpen(false)}
+            onCreate={(calendar) => {
+              app.createCalendar(calendar);
+              quickCreate.setIsCreateCalendarOpen(false);
+            }}
+          />
+        )}
+        {renderEventDetailDialog()}
+      </div>
     </ThemeProvider>
   );
 };

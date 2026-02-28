@@ -115,7 +115,6 @@ export const useVirtualMonthScroll = ( {
   weekHeight,
   onCurrentMonthChange,
   initialWeeksToLoad = 104,
-  locale = "en-US",
   isEnabled = true,
 }: UseVirtualMonthScrollProps ): UseVirtualMonthScrollReturn => {
   const targetNavigationRef = useRef<{ month: string; year: number } | null> (
@@ -125,12 +124,11 @@ export const useVirtualMonthScroll = ( {
   const getMonthName = useCallback (
     ( monthIndex: number, year: number ) => {
       const date = new Date ( year, monthIndex, 1 )
-      const isAsian = locale.startsWith ( "zh" ) || locale.startsWith ( "ja" )
-      return date.toLocaleDateString ( locale, {
-        month: isAsian ? "short" : "long",
+      return date.toLocaleDateString ( "en-US", {
+        month: "long",
       } )
     },
-    [ locale ],
+    [],
   )
 
   const initialWeeksData = useMemo ( () => {

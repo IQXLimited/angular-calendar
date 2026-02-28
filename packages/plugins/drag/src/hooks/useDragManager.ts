@@ -8,8 +8,6 @@ import {
   getSelectedBgColor,
   getEventTextColor,
   formatTime,
-  useLocale,
-  LocaleProvider,
   dateToZonedDateTime,
 } from "@dayflow/core"
 import DragIndicatorComponent from "@drag/components/DragIndicatorComponent"
@@ -18,7 +16,6 @@ import { h, render } from "preact"
 import { useRef, useCallback } from "preact/hooks"
 
 export const useDragManager = ( options: useDragProps ): UseDragManagerReturn => {
-  const { t, locale } = useLocale ()
   const {
     calendarRef,
     allDayRowRef,
@@ -123,7 +120,7 @@ export const useDragManager = ( options: useDragProps ): UseDragManagerReturn =>
           ( {
             id: String ( Date.now () ),
             color: color || "blue",
-            title: title || t ( "newEvent" ),
+            title: title || "New Event",
             start: nowTemporal,
             end: nowTemporal,
             allDay: false,
@@ -131,17 +128,13 @@ export const useDragManager = ( options: useDragProps ): UseDragManagerReturn =>
           } as Event )
 
         render (
-          h (
-            LocaleProvider,
-            { locale },
-            h ( MonthDragIndicatorComponent, {
-              event: eventForComponent,
-              isCreating: drag.mode === "create",
-              targetDate: drag.targetDate || null,
-              startDate: drag.originalStartDate || null,
-              endDate: drag.originalEndDate || null,
-            } ),
-          ),
+          h ( MonthDragIndicatorComponent, {
+            event: eventForComponent,
+            isCreating: drag.mode === "create",
+            targetDate: drag.targetDate || null,
+            startDate: drag.originalStartDate || null,
+            endDate: drag.originalEndDate || null,
+          } ),
           indicator,
         )
       } else {
@@ -253,22 +246,18 @@ export const useDragManager = ( options: useDragProps ): UseDragManagerReturn =>
 
         // Render Week/Day view content
         render (
-          h (
-            LocaleProvider,
-            { locale },
-            h ( DragIndicatorComponent, {
-              drag,
-              color,
-              title,
-              layout,
-              allDay: drag.allDay,
-              formatTime: formatTime,
-              getLineColor: getLineColor || ( () => "" ),
-              getDynamicPadding: getDynamicPadding || ( () => "0px" ),
-              renderer,
-              isMobile,
-            } ),
-          ),
+          h ( DragIndicatorComponent, {
+            drag,
+            color,
+            title,
+            layout,
+            allDay: drag.allDay,
+            formatTime: formatTime,
+            getLineColor: getLineColor || ( () => "" ),
+            getDynamicPadding: getDynamicPadding || ( () => "0px" ),
+            renderer,
+            isMobile,
+          } ),
           indicator,
         )
       }
@@ -408,9 +397,7 @@ export const useDragManager = ( options: useDragProps ): UseDragManagerReturn =>
 
           render (
             h (
-              LocaleProvider,
-              { locale },
-              h ( DragIndicatorComponent, {
+              DragIndicatorComponent, {
                 drag: updatedDrag,
                 color: dragPropsRef.current.color,
                 title: dragPropsRef.current.title,
@@ -421,7 +408,7 @@ export const useDragManager = ( options: useDragProps ): UseDragManagerReturn =>
                 getDynamicPadding: getDynamicPadding || ( () => "0px" ),
                 renderer,
                 isMobile,
-              } ),
+              },
             ),
             indicator,
           )

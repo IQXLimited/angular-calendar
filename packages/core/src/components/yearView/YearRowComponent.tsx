@@ -21,7 +21,6 @@ interface YearRowComponentProps {
   columnsPerRow: number;
   app: ICalendarApp;
   calendarRef: RefObject<HTMLDivElement>;
-  locale: string;
   isDragging: boolean;
   dragState: MonthEventDragState;
   onMoveStart?: (e: MouseEvent | TouchEvent, event: Event) => void;
@@ -50,7 +49,6 @@ export const YearRowComponent = memo(
     columnsPerRow,
     app,
     calendarRef,
-    locale,
     isDragging,
     dragState,
     onMoveStart,
@@ -154,7 +152,6 @@ export const YearRowComponent = memo(
               key={date.getTime()}
               date={date}
               isToday={isToday}
-              locale={locale}
               onSelectDate={(d: Date) => {
                 app.selectDate(d);
               }}

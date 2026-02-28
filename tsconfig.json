@@ -22,7 +22,6 @@
     "baseUrl": ".",
     "paths": {
       "@dayflow/core": ["packages/core/src/index.ts"],
-      "@dayflow/react": ["packages/react/src/index.ts"],
       "@dayflow/angular": ["packages/angular/src/public-api.ts"],
       "@dayflow/plugin-keyboard-shortcuts": [
         "packages/plugins/keyboard-shortcuts/src/index.ts"

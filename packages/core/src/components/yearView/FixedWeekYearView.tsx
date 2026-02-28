@@ -11,7 +11,6 @@ import { Temporal } from "temporal-polyfill";
 import { CalendarEvent } from "@/components/calendarEvent";
 import ViewHeader from "@/components/common/ViewHeader";
 import { GridContextMenu } from "@/components/contextMenu";
-import { useLocale } from "@/locale";
 import { useDragForView } from "@/plugins/dragBridge";
 import { scrollbarHide } from "@/styles/classNames";
 import {
@@ -181,7 +180,6 @@ export const FixedWeekYearView = ({
   detailPanelEventId: propDetailPanelEventId,
   onDetailPanelToggle: propOnDetailPanelToggle,
 }: FixedWeekYearViewProps) => {
-  const { t, locale, getWeekDaysLabels } = useLocale();
   const currentDate = app.getCurrentDate();
   const currentYear = currentDate.getFullYear();
   const rawEvents = app.getEvents();
@@ -339,7 +337,7 @@ export const FixedWeekYearView = ({
         });
         const newEvent: Event = {
           id: `event-${Date.now()}`,
-          title: t("newEvent") || "New Event",
+          title: "New Event",
           start: plainDate,
           end: plainDate,
           allDay: true,
@@ -353,13 +351,10 @@ export const FixedWeekYearView = ({
 
   // Generate week header labels
   const weekLabels = useMemo(() => {
-    const labels = getWeekDaysLabels(locale, "short");
+    const labels = [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ];
     const sundayStartLabels = [labels[6], ...labels.slice(0, 6)];
 
     const formattedLabels = sundayStartLabels.map((label) => {
-      if (locale.startsWith("zh")) {
-        return label.at(-1);
-      }
       const twoChars = label.slice(0, 2);
       return twoChars.charAt(0).toUpperCase() + twoChars.slice(1).toLowerCase();
     });
@@ -369,7 +364,7 @@ export const FixedWeekYearView = ({
       result.push(formattedLabels[i % 7]);
     }
     return result;
-  }, [locale, getWeekDaysLabels, totalColumns]);
+  }, [totalColumns]);
 
   // Helper to check if a date is today
   const isDateToday = (date: Date) => date.getTime() === today.getTime();
@@ -411,7 +406,7 @@ export const FixedWeekYearView = ({
         days.push(null);
       }
 
-      const rawMonthName = monthStart.toLocaleDateString(locale, {
+      const rawMonthName = monthStart.toLocaleDateString(undefined, {
         month: "short",
       });
       const monthName =
@@ -441,7 +436,7 @@ export const FixedWeekYearView = ({
       });
     }
     return data;
-  }, [currentYear, locale, totalColumns, yearEvents]);
+  }, [currentYear, totalColumns, yearEvents]);
 
   // Handle scroll synchronization
   const handleContentScroll = useCallback(
@@ -487,8 +482,7 @@ export const FixedWeekYearView = ({
   }, [monthsData]); // Re-measure when content changes
 
   const getCustomTitle = () => {
-    const isAsianLocale = locale.startsWith("zh") || locale.startsWith("ja");
-    return isAsianLocale ? `${currentYear}年` : `${currentYear}`;
+    return `${currentYear}`;
   };
 
   return (

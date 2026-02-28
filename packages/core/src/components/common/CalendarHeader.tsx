@@ -2,7 +2,6 @@ import { JSX } from "preact";
 import { useContext, useCallback, useMemo } from "preact/hooks";
 
 import { useResponsiveMonthConfig } from "@/hooks/virtualScroll";
-import { useLocale } from "@/locale/useLocale";
 import { ContentSlot } from "@/renderer/ContentSlot";
 import { CustomRenderingContext } from "@/renderer/CustomRenderingContext";
 import { iconButton, searchInput, textGray500 } from "@/styles/classNames";
@@ -27,7 +26,6 @@ const CalendarHeader = ({
   const isDayView = calendar.state.currentView === ViewType.DAY;
   const { screenSize } = useResponsiveMonthConfig();
   const isMobile = screenSize === "mobile";
-  const { t } = useLocale();
 
   const handleSearchChange = useCallback(
     (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
@@ -98,8 +96,8 @@ const CalendarHeader = ({
                 className={iconButton}
                 title={
                   isMobile
-                    ? t("newEvent") || "New Event"
-                    : t("createCalendar") || "Add Calendar"
+                    ? "New Event"
+                    : "Add Calendar"
                 }
               >
                 <Plus className={`h-4 w-4 ${textGray500}`} />
@@ -127,7 +125,7 @@ const CalendarHeader = ({
               type="button"
               onClick={onSearchClick}
               className={`md:hidden ${iconButton}`}
-              title={t("search") || "Search"}
+              title={"Search"}
             >
               <Search width={16} height={16} />
             </button>
@@ -142,7 +140,7 @@ const CalendarHeader = ({
               <input
                 id="dayflow-search-input"
                 type="text"
-                placeholder={t("search") || "Search"}
+                placeholder={"Search"}
                 value={searchValue}
                 onChange={handleSearchChange}
                 className={`${searchInput} w-48`}

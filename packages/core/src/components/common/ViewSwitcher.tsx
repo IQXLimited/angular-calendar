@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from "preact/hooks";
 
-import { useLocale } from "@/locale";
-import { TranslationKey } from "@/locale/types";
 import { dropdownPanel, textGray500 } from "@/styles/classNames";
 import { ICalendarApp } from "@/types";
 
@@ -15,7 +13,6 @@ interface ViewSwitcherProps {
 const ViewSwitcher = ({ calendar, mode = "buttons" }: ViewSwitcherProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { t } = useLocale();
 
   // Get all registered views
   const registeredViews = Array.from(calendar.state.views.keys());
@@ -55,7 +52,7 @@ const ViewSwitcher = ({ calendar, mode = "buttons" }: ViewSwitcherProps) => {
           aria-haspopup="listbox"
         >
           <span className="text-gray-900 dark:text-gray-100">
-            {t(currentView as TranslationKey)}
+            {currentView.charAt(0).toUpperCase() + currentView.slice(1)}
           </span>
           <span
             className={`${textGray500} transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
@@ -87,7 +84,7 @@ const ViewSwitcher = ({ calendar, mode = "buttons" }: ViewSwitcherProps) => {
                   role="option"
                   aria-selected={currentView === viewType}
                 >
-                  {t(viewType as TranslationKey)}
+                  {viewType.charAt(0).toUpperCase() + viewType.slice(1)}
                 </button>
               ))}
             </div>
@@ -129,7 +126,7 @@ const ViewSwitcher = ({ calendar, mode = "buttons" }: ViewSwitcherProps) => {
             calendar.triggerRender();
           }}
         >
-          {t(viewType as TranslationKey)}
+          {viewType.charAt(0).toUpperCase() + viewType.slice(1)}
         </button>
       ))}
     </div>

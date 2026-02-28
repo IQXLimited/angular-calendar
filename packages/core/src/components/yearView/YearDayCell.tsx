@@ -1,11 +1,9 @@
 import { memo } from "preact/compat";
 
-import { useLocale } from "@/locale";
 
 interface YearDayCellProps {
   date: Date;
   isToday: boolean;
-  locale: string;
   onSelectDate: (date: Date) => void;
   onCreateStart?: (e: MouseEvent | TouchEvent, targetDate: Date) => void;
   onMoreEventsClick?: (date: Date) => void;
@@ -17,18 +15,16 @@ export const YearDayCell = memo(
   ({
     date,
     isToday,
-    locale,
     onSelectDate,
     onCreateStart,
     onMoreEventsClick,
     moreCount = 0,
     onContextMenu,
   }: YearDayCellProps) => {
-    const { t } = useLocale();
-    const day = date.getDate();
+      const day = date.getDate();
     const isFirstDay = day === 1;
     const monthLabel = date
-      .toLocaleDateString(locale, { month: "short" })
+      .toLocaleDateString(undefined, { month: "short" })
       .toUpperCase();
     const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
@@ -71,7 +67,7 @@ export const YearDayCell = memo(
                 onMoreEventsClick?.(date);
               }}
             >
-              +{moreCount} {t("more")}
+              +{moreCount} More
             </span>
           </div>
         )}

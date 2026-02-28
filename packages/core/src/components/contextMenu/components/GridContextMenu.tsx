@@ -1,5 +1,4 @@
 import { handlePasteEvent } from "@/components/contextMenu/utils";
-import { useLocale } from "@/locale";
 import { ICalendarApp, ViewType } from "@/types";
 import { clipboardStore } from "@/utils/clipboardStore";
 
@@ -24,7 +23,6 @@ const GridContextMenu = ({
   onCreateEvent,
   viewType,
 }: GridContextMenuProps) => {
-  const { t } = useLocale();
   const hasCopiedEvent = clipboardStore.hasEvent();
 
   const handlePaste = async () => {
@@ -40,10 +38,10 @@ const GridContextMenu = ({
           onClose();
         }}
       >
-        {t("newEvent") || "New Event"}
+        {"New Event"}
       </ContextMenuItem>
       <ContextMenuItem onClick={handlePaste} disabled={!hasCopiedEvent}>
-        {t("pasteHere") || "Paste Here"}
+        {"Paste Here"}
       </ContextMenuItem>
     </ContextMenu>
   );

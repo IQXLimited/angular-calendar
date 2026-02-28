@@ -1,7 +1,6 @@
 import {
   PanelRightClose,
   PanelRightOpen,
-  useLocale,
   sidebarHeader,
   sidebarHeaderToggle,
   sidebarHeaderTitle,
@@ -16,12 +15,11 @@ export const SidebarHeader = ({
   isCollapsed,
   onCollapseToggle,
 }: SidebarHeaderProps) => {
-  const { t } = useLocale();
   return (
     <div className={sidebarHeader}>
       <button
         type="button"
-        aria-label={isCollapsed ? t("expandSidebar") : t("collapseSidebar")}
+        aria-label={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
         className={sidebarHeaderToggle}
         onClick={onCollapseToggle}
       >
@@ -33,7 +31,7 @@ export const SidebarHeader = ({
       </button>
       {!isCollapsed && (
         <div className="ml-3 flex flex-1 items-center justify-between">
-          <span className={sidebarHeaderTitle}>{t("calendars")}</span>
+          <span className={sidebarHeaderTitle}>Calendars</span>
         </div>
       )}
     </div>

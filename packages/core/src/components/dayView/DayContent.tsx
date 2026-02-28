@@ -4,7 +4,6 @@ import { useRef, useState } from "preact/hooks";
 import CalendarEventComponent from "@/components/calendarEvent";
 import ViewHeader from "@/components/common/ViewHeader";
 import { GridContextMenu } from "@/components/contextMenu";
-import { useLocale } from "@/locale";
 import {
   allDayRow,
   allDayLabel,
@@ -145,7 +144,6 @@ export const DayContent = ({
   showAllDay,
   showStartOfDayLabel,
 }: DayContentProps) => {
-  const { t, locale } = useLocale();
   const prevHighlightedEventId = useRef(app.state.highlightedEventId);
   const [contextMenu, setContextMenu] = useState<{
     x: number;
@@ -221,7 +219,7 @@ export const DayContent = ({
             calendar={app}
             viewType={ViewType.DAY}
             currentDate={currentDate}
-            customSubtitle={currentDate.toLocaleDateString(locale, {
+            customSubtitle={currentDate.toLocaleDateString(undefined, {
               weekday: "long",
             })}
           />
@@ -244,7 +242,7 @@ export const DayContent = ({
               className={`${allDayLabel} flex w-12 items-center text-[10px] md:w-20 md:text-xs`}
               onContextMenu={(e) => e.preventDefault()}
             >
-              {t("allDay")}
+              All day
             </div>
             <div
               className={cn(

@@ -2,12 +2,11 @@
  * Encapsulates Intl API calls for standard calendar terms.
  */
 export function getIntlLabel (
-  key: "today" | "day" | "week" | "month" | "year",
-  locale: string,
+  key: "today" | "day" | "week" | "month" | "year"
 ): string | null {
   try {
     if ( key === "today" ) {
-      const rtf = new Intl.RelativeTimeFormat ( locale, { numeric: "auto" } )
+      const rtf = new Intl.RelativeTimeFormat ( "en-US", { numeric: "auto" } )
       return (
         rtf.formatToParts ( 0, "day" ).find ( p => p.type === "literal" )?.value ??
         null
@@ -15,14 +14,14 @@ export function getIntlLabel (
     }
 
     if ( key === "week" ) {
-      const rtf = new Intl.RelativeTimeFormat ( locale, { numeric: "always" } )
+      const rtf = new Intl.RelativeTimeFormat ( "en-US", { numeric: "always" } )
       return (
         rtf.formatToParts ( 1, "week" ).find ( p => p.type === "unit" )?.value ??
         null
       )
     }
 
-    const dn = new Intl.DisplayNames ( locale, { type: "dateTimeField" } )
+    const dn = new Intl.DisplayNames ( "en-US", { type: "dateTimeField" } )
     return dn.of ( key ) ?? null
   } catch {
     return null
@@ -40,7 +39,6 @@ export function capitalize ( str: string ): string {
  * Get localized weekday labels (Mon, Tue, etc.)
  */
 export const getWeekDaysLabels = (
-  locale: string,
   format: "long" | "short" | "narrow" = "short",
 ): string[] => {
   const labels: string[] = []
@@ -49,11 +47,7 @@ export const getWeekDaysLabels = (
   for ( let i = 0; i < 7; i++ ) {
     const date = new Date ( baseDate )
     date.setDate ( baseDate.getDate () + i )
-    try {
-      labels.push ( date.toLocaleDateString ( locale, { weekday: format } ) )
-    } catch {
-      labels.push ( date.toLocaleDateString ( "en-US", { weekday: format } ) )
-    }
+    labels.push ( date.toLocaleDateString ( "en-US", { weekday: format } ) )
   }
   return labels
 }
@@ -62,17 +56,12 @@ export const getWeekDaysLabels = (
  * Get localized month labels
  */
 export const getMonthLabels = (
-  locale: string,
   format: "long" | "short" | "narrow" | "numeric" | "2-digit" = "long",
 ): string[] => {
   const labels: string[] = []
   for ( let i = 0; i < 12; i++ ) {
     const date = new Date ( 2024, i, 1 )
-    try {
-      labels.push ( date.toLocaleDateString ( locale, { month: format } ) )
-    } catch {
-      labels.push ( date.toLocaleDateString ( "en-US", { month: format } ) )
-    }
+    labels.push ( date.toLocaleDateString ( "en-US", { month: format } ) )
   }
   return labels
 }

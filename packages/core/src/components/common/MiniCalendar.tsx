@@ -1,6 +1,6 @@
 import { useMemo } from "preact/hooks";
 
-import { useLocale, getWeekDaysLabels } from "@/locale";
+import { getWeekDaysLabels } from "@/locale";
 import {
   miniCalendarDay,
   miniCalendarDayHeader,
@@ -29,22 +29,18 @@ export const MiniCalendar = ({
   onMonthChange,
   onDateSelect,
 }: MiniCalendarProps) => {
-  const { locale } = useLocale();
   const todayKey = useMemo(() => new Date().toDateString(), []);
   const currentDateKey = currentDate.toDateString();
 
-  const weekdayLabels = useMemo(
-    () => getWeekDaysLabels(locale, "narrow"),
-    [locale],
-  );
+  const weekdayLabels = getWeekDaysLabels("narrow");
 
   const monthLabel = useMemo(
     () =>
-      visibleMonth.toLocaleDateString(locale, {
+      visibleMonth.toLocaleDateString("en-US", {
         month: "long",
         year: "numeric",
       }),
-    [visibleMonth, locale],
+    [visibleMonth],
   );
 
   const miniCalendarDays = useMemo(() => {
@@ -104,7 +100,7 @@ export const MiniCalendar = ({
         ""
       )}
       <div className={miniCalendarGrid}>
-        {weekdayLabels.map((label, index) => (
+        {weekdayLabels.map((label: string, index: number) => (
           <div
             key={`weekday-${index}`}
             className={`${miniCalendarDayHeader} text-gray-500 dark:text-gray-400`}

@@ -4,7 +4,6 @@ import {
   UseWeekDayDragReturn,
   Event,
   getDateByDayIndex,
-  useLocale,
   dateToPlainDate,
 } from "@dayflow/core"
 // Week/Day view specific implementation
@@ -13,7 +12,6 @@ import { useCallback } from "preact/hooks"
 export const useWeekDayDrag = (
   params: UseWeekDayDragParams,
 ): UseWeekDayDragReturn => {
-  const { t } = useLocale ()
   const { options, common, state, handleDragMove, handleDragEnd } = params
   const { viewType, currentWeekStart, app } = options
   const { dragRef, setDragState } = state
@@ -41,7 +39,7 @@ export const useWeekDayDrag = (
 
         const newEvent: Event = {
           id: String ( Date.now () ),
-          title: t ( "newAllDayEvent" ),
+          title: "New All-day Event",
           day: dayIndex,
           start: startTemporal,
           end: endTemporal,
@@ -105,7 +103,6 @@ export const useWeekDayDrag = (
       handleDragMove,
       dragRef,
       setDragState,
-      app?.state.locale,
       options,
     ],
   )

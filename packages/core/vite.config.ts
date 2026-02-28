@@ -21,7 +21,6 @@ export default defineConfig({
         "../plugins/keyboard-shortcuts/src",
       ),
       "@dayflow/core": resolve(__dirname, "src/index.ts"),
-      "@dayflow/react": resolve(__dirname, "../react/src/index.ts"),
       "@examples": resolve(__dirname, "../../examples"),
       "@dayflow/plugin-sidebar": resolve(
         __dirname,

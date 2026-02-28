@@ -22,7 +22,7 @@ export const getEventBgColor = (
   calendarIdOrColor: string,
   registry?: CalendarRegistry,
 ): string => {
-  const reg = registry || getDefaultCalendarRegistry ()
+  const reg = registry || getDefaultCalendarRegistry ( )
   const colors = reg.resolveColors ( calendarIdOrColor )
   return colors.eventColor
 }

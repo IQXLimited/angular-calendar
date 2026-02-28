@@ -1,8 +1,5 @@
 import { Temporal } from "temporal-polyfill"
-
-import { TranslationKey } from "@/locale/types"
 import { CalendarSearchEvent } from "@/types/search"
-
 import { temporalToDate } from "./temporal"
 
 /**
@@ -40,15 +37,11 @@ export const normalizeDate = ( date: Date ): Date => {
  * Helper to get header text and color for a date group in search results
  * @param groupDate The date of the group
  * @param today Reference today date (normalized)
- * @param locale Locale string
- * @param t Translation function
  * @returns Object with title and colorClass
  */
 export const getSearchHeaderInfo = (
   groupDate: Date,
-  today: Date,
-  locale: string,
-  t: ( key: TranslationKey ) => string,
+  today: Date
 ): { title: string; colorClass: string } => {
   const diffTime = groupDate.getTime () - today.getTime ()
   const diffDays = Math.round ( diffTime / ( 1000 * 60 * 60 * 24 ) )
@@ -58,21 +51,21 @@ export const getSearchHeaderInfo = (
 
   if ( diffDays === 0 ) {
     // Today
-    title = t ( "today" ) || "Today"
+    title = "Today"
     colorClass = "text-primary" // Primary color
   } else if ( diffDays === 1 || diffDays === 2 ) {
     // Tomorrow or Day after tomorrow
     try {
-      const rtf = new Intl.RelativeTimeFormat ( locale, { numeric: "auto" } )
+      const rtf = new Intl.RelativeTimeFormat ( undefined, { numeric: "auto" } )
       const relative = rtf.format ( diffDays, "day" )
       title = relative.charAt ( 0 ).toUpperCase () + relative.slice ( 1 )
       colorClass = "text-black dark:text-white" // Black/White for tomorrow/day after
     } catch {
-      title = groupDate.toLocaleDateString ( locale, { weekday: "long" } )
+      title = groupDate.toLocaleDateString ( undefined, { weekday: "long" } )
     }
   } else {
     // Others
-    title = groupDate.toLocaleDateString ( locale, {
+    title = groupDate.toLocaleDateString ( undefined, {
       year: "numeric",
       month: "long",
       day: "numeric",

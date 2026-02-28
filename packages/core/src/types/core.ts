@@ -4,7 +4,6 @@ import { h, AnyComponent, ComponentChildren } from "preact"
 
 import { ViewSwitcherMode } from "@/components/common/ViewHeader"
 import { CalendarRegistry } from "@/core/calendarRegistry"
-import { Locale } from "@/locale/types"
 
 import { CalendarType, ThemeConfig, ThemeMode } from "./calendarTypes"
 import { Event } from "./event"
@@ -143,7 +142,6 @@ export interface CalendarAppConfig {
   useEventDetailDialog?: boolean
   useCalendarHeader?: boolean | ( ( props: CalendarHeaderProps ) => TNode )
   customMobileEventRenderer?: MobileEventRenderer
-  locale?: string | Locale
   readOnly?: boolean | ReadOnlyConfig
 }
 
@@ -166,8 +164,6 @@ export interface CalendarAppState {
   plugins: Map<string, CalendarPlugin>
   views: Map<ViewType, CalendarView>
   switcherMode?: ViewSwitcherMode
-
-  locale: string | Locale
   highlightedEventId?: string | null
   selectedEventId?: string | null
   readOnly: boolean | ReadOnlyConfig
@@ -322,7 +318,6 @@ export interface UseCalendarAppReturn {
  * Contains drag and view configurations
  */
 export interface CalendarConfig {
-  locale?: string
   drag: {
     HOUR_HEIGHT: number
     FIRST_HOUR: number

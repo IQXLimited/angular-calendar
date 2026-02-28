@@ -8,7 +8,6 @@ import {
   useLayoutEffect,
 } from "preact/hooks";
 
-import { useLocale } from "@/locale";
 import { ICalendarApp, Event } from "@/types";
 import { generateUniKey } from "@/utils/helpers";
 import { dateToZonedDateTime } from "@/utils/temporal";
@@ -46,7 +45,6 @@ export const QuickCreateEventPopup = ({
   onClose,
   isOpen,
 }: QuickCreateEventPopupProps) => {
-  const { t } = useLocale();
   const [inputValue, setInputValue] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isReady, setIsReady] = useState(false);
@@ -274,7 +272,7 @@ export const QuickCreateEventPopup = ({
     >
       <div className="p-4 pb-2">
         <div className="mb-2 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
-          {t("quickCreateEvent") || "Quick Create Event"}
+          {"Quick Create Event"}
         </div>
         <div className="relative">
           <input
@@ -282,7 +280,7 @@ export const QuickCreateEventPopup = ({
             type="text"
             className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-gray-900 shadow-sm transition focus:border-primary focus:ring-2 focus:ring-primary focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
             placeholder={
-              t("quickCreatePlaceholder") || "Enter title (e.g. Code review)"
+              "Enter title (e.g. Code review)"
             }
             value={inputValue}
             onChange={(e) =>
@@ -295,7 +293,7 @@ export const QuickCreateEventPopup = ({
       <div className="max-h-75 flex-1 overflow-y-auto px-2 py-1">
         {suggestions.length === 0 && inputValue && (
           <div className="px-4 py-3 text-center text-sm text-gray-400">
-            {t("noSuggestions") || "Type to create"}
+            {"Type to create"}
           </div>
         )}
 
@@ -320,7 +318,7 @@ export const QuickCreateEventPopup = ({
               </div>
               <div className="flex">
                 <span className="rounded bg-gray-100 px-1 text-[10px] font-semibold text-gray-500 dark:bg-slate-700 dark:text-gray-400">
-                  {item.type === "new" ? t("today") : t("tomorrow")}
+                  {item.type === "new" ? "Today" : "Tomorrow"}
                 </span>
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400">

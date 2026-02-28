@@ -16,7 +16,6 @@ import {
   useVirtualMonthScroll,
   useResponsiveMonthConfig,
 } from "@/hooks/virtualScroll";
-import { useLocale } from "@/locale";
 import { useDragForView } from "@/plugins/dragBridge";
 import {
   monthViewContainer,
@@ -28,6 +27,7 @@ import {
 import { Event, MonthEventDragState, ViewType, MonthViewProps } from "@/types";
 import { extractHourFromDate } from "@/utils";
 import { temporalToDate } from "@/utils/temporal";
+import { getMonthLabels, getWeekDaysLabels } from "@/locale";
 
 const MonthView = ({
   app,
@@ -39,7 +39,6 @@ const MonthView = ({
   detailPanelEventId: propDetailPanelEventId,
   onDetailPanelToggle: propOnDetailPanelToggle,
 }: MonthViewProps & { calendarRef: RefObject<HTMLDivElement> }) => {
-  const { getWeekDaysLabels, getMonthLabels, locale } = useLocale();
   const currentDate = app.getCurrentDate();
   const rawEvents = app.getEvents();
   const calendarSignature = app
@@ -304,10 +303,7 @@ const MonthView = ({
     },
   });
 
-  const weekDaysLabels = useMemo(
-    () => getWeekDaysLabels(locale, "short"),
-    [locale, getWeekDaysLabels],
-  );
+  const weekDaysLabels = getWeekDaysLabels("short");
 
   const {
     currentMonth,
@@ -326,11 +322,7 @@ const MonthView = ({
     currentDate,
     weekHeight,
     onCurrentMonthChange: (monthName: string, year: number) => {
-      const isAsian = locale.startsWith("zh") || locale.startsWith("ja");
-      const localizedMonths = getMonthLabels(
-        locale,
-        isAsian ? "short" : "long",
-      );
+      const localizedMonths = getMonthLabels ( "long" );
       const monthIndex = localizedMonths.indexOf(monthName);
 
       if (monthIndex >= 0) {
@@ -338,7 +330,6 @@ const MonthView = ({
       }
     },
     initialWeeksToLoad: 156,
-    locale: locale,
     isEnabled: isWeekHeightInitialized,
   });
 
@@ -546,10 +537,7 @@ const MonthView = ({
 
   // Pending: remove getCustomTitle and using app.currentDate to fixed
   const getCustomTitle = () => {
-    const isAsianLocale = locale.startsWith("zh") || locale.startsWith("ja");
-    return isAsianLocale
-      ? `${currentYear}年${currentMonth}`
-      : `${currentMonth} ${currentYear}`;
+    return `${currentMonth} ${currentYear}`;
   };
 
   return (

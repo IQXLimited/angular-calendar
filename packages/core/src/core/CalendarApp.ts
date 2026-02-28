@@ -1,5 +1,3 @@
-import { Locale } from "@/locale/types"
-import { isValidLocale } from "@/locale/utils"
 // Pending: refactor to split into multiple files if it grows too large
 import {
   ICalendarApp,
@@ -53,7 +51,6 @@ export class CalendarApp implements ICalendarApp {
       switcherMode: config.switcherMode || "buttons",
       plugins: new Map (),
       views: new Map (),
-      locale: CalendarApp.resolveLocale ( config.locale ),
       highlightedEventId: null,
       selectedEventId: null,
       readOnly: config.readOnly || false,
@@ -122,26 +119,6 @@ export class CalendarApp implements ICalendarApp {
       this.triggerRender ()
       this.notify ()
     }
-  }
-
-  private static resolveLocale ( locale?: string | Locale ): string | Locale {
-    if ( !locale ) {
-      return "en-US"
-    }
-
-    if ( typeof locale === "string" ) {
-      return isValidLocale ( locale ) ? locale : "en-US"
-    }
-
-    if (
-      locale &&
-      typeof locale === "object" &&
-      !isValidLocale ( ( locale as Locale ).code )
-    ) {
-      return { ...( locale as Locale ), code: "en-US" }
-    }
-
-    return locale
   }
 
   // Subscription management
@@ -773,13 +750,6 @@ export class CalendarApp implements ICalendarApp {
     ) {
       this.state.switcherMode = config.switcherMode
       hasChanged = true
-    }
-    if ( config.locale !== undefined ) {
-      const newLocale = CalendarApp.resolveLocale ( config.locale )
-      if ( !isDeepEqual ( newLocale, this.state.locale ) ) {
-        this.state.locale = newLocale
-        hasChanged = true
-      }
     }
 
     if ( hasChanged ) {

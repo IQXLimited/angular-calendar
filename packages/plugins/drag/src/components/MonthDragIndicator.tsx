@@ -1,4 +1,4 @@
-import { Event, daysDifference, useLocale } from "@dayflow/core";
+import { Event, daysDifference } from "@dayflow/core";
 
 const CalendarIcon = ({ className }: { className?: string }) => (
   <svg
@@ -36,11 +36,10 @@ const MonthDragIndicatorComponent = ({
   startDate,
   endDate,
 }: MonthDragIndicatorProps) => {
-  const { t } = useLocale();
   const getDisplayContent = () => {
     if (isCreating) {
       return {
-        title: t("newEvent"),
+        title: "New Event",
         icon: <CalendarIcon className="h-3 w-3" />,
         showDateRange: false,
       };

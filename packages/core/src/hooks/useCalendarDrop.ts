@@ -1,7 +1,5 @@
 import { useCallback } from "preact/hooks"
 import { Temporal } from "temporal-polyfill"
-
-import { useLocale } from "@/locale"
 import { Event, CalendarColors, ICalendarApp } from "@/types"
 
 export interface CalendarDropData {
@@ -33,7 +31,6 @@ export function useCalendarDrop (
   options: CalendarDropOptions,
 ): CalendarDropReturn {
   const { app, onEventCreated } = options
-  const { t } = useLocale ()
 
   const handleDragOver = useCallback ( ( e: DragEvent ) => {
     // Check if the drag data is from a calendar
@@ -122,10 +119,8 @@ export function useCalendarDrop (
         const newEvent: Event = {
           id: eventId,
           title: allDay
-            ? t ( "newAllDayCalendarEvent", {
-              calendarName: dragData.calendarName,
-            } )
-            : t ( "newCalendarEvent", { calendarName: dragData.calendarName } ),
+            ? `New ${dragData.calendarName} All-Day Event`
+            : `New ${dragData.calendarName} Event`,
           description: "",
           start,
           end,

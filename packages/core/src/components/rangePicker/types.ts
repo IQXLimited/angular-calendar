@@ -1,7 +1,5 @@
 import { Temporal } from "temporal-polyfill"
 
-import { Locale } from "@/locale/types"
-
 export type ZonedRange = [Temporal.ZonedDateTime, Temporal.ZonedDateTime]
 
 export interface RangePickerProps {
@@ -20,5 +18,4 @@ export interface RangePickerProps {
   autoAdjustOverflow?: boolean
   getPopupContainer?: () => HTMLElement
   matchTriggerWidth?: boolean
-  locale?: string | Locale
 }

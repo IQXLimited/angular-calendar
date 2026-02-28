@@ -4,7 +4,6 @@ import { Temporal } from "temporal-polyfill";
 
 import RangePicker from "@/components/rangePicker";
 import { getDefaultCalendarRegistry } from "@/core/calendarRegistry";
-import { useLocale } from "@/locale";
 import { dialogContainer } from "@/styles/classNames";
 import { ICalendarApp } from "@/types";
 import { EventDetailDialogProps } from "@/types/eventDetail";
@@ -30,7 +29,6 @@ const DefaultEventDetailDialog = ({
   app,
 }: DefaultEventDetailDialogProps) => {
   const [editedEvent, setEditedEvent] = useState(event);
-  const { t } = useLocale();
 
   // Sync state when event prop changes (e.g. if opened with a different event)
   useEffect(() => {
@@ -190,7 +188,7 @@ const DefaultEventDetailDialog = ({
         {/* Content */}
         <div>
           <span className="mb-1 block text-xs text-gray-600 dark:text-gray-300">
-            {t("eventTitle")}
+            Event Title
           </span>
           <div className="mb-4 flex items-center justify-between gap-3">
             <div className="flex-1">
@@ -228,7 +226,7 @@ const DefaultEventDetailDialog = ({
           {editedEvent.allDay ? (
             <div className="mb-4">
               <div className="mb-1 text-xs text-gray-600 dark:text-gray-300">
-                {t("dateRange")}
+                Date Range
               </div>
               <RangePicker
                 value={[editedEvent.start, editedEvent.end]}
@@ -239,13 +237,12 @@ const DefaultEventDetailDialog = ({
                 disabled={!isEditable}
                 onChange={handleAllDayRangeChange}
                 onOk={handleAllDayRangeChange}
-                locale={app?.state.locale}
               />
             </div>
           ) : (
             <div className="mb-4">
               <div className="mb-1 text-xs text-gray-600 dark:text-gray-300">
-                {t("timeRange")}
+                Time Range
               </div>
               <RangePicker
                 value={[editedEvent.start, editedEvent.end]}
@@ -271,14 +268,13 @@ const DefaultEventDetailDialog = ({
                     end,
                   });
                 }}
-                locale={app?.state.locale}
               />
             </div>
           )}
 
           <div className="mb-4">
             <span className="mb-1 block text-xs text-gray-600 dark:text-gray-300">
-              {t("note")}
+              Notes
             </span>
             <textarea
               id={`event-dialog-note-${editedEvent.id}`}
@@ -294,7 +290,7 @@ const DefaultEventDetailDialog = ({
               }
               rows={4}
               className="w-full resize-none rounded-lg border border-slate-200 px-3 py-2 text-sm text-gray-900 shadow-sm transition focus:border-primary focus:ring-2 focus:ring-primary focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-              placeholder={t("addNotePlaceholder")}
+              placeholder={"Notes"}
             />
           </div>
 
@@ -306,7 +302,7 @@ const DefaultEventDetailDialog = ({
                   className="rounded-lg bg-secondary/10 px-3 py-2 text-xs font-medium text-secondary transition hover:bg-secondary/20"
                   onClick={convertToRegular}
                 >
-                  {t("setAsTimed")}
+                  {"Set as Timed Event"}
                 </button>
               ) : (
                 <button
@@ -314,7 +310,7 @@ const DefaultEventDetailDialog = ({
                   className="rounded-lg bg-secondary/10 px-3 py-2 text-xs font-medium text-secondary transition hover:bg-secondary/20"
                   onClick={convertToAllDay}
                 >
-                  {t("setAsAllDay")}
+                  {"Set as All-day"}
                 </button>
               )}
 
@@ -326,7 +322,7 @@ const DefaultEventDetailDialog = ({
                   onClose();
                 }}
               >
-                {t("delete")}
+                Delete
               </button>
 
               <button
@@ -339,7 +335,7 @@ const DefaultEventDetailDialog = ({
                 onClick={handleSave}
                 disabled={!hasChanges}
               >
-                {t("save")}
+                Save
               </button>
             </div>
           )}

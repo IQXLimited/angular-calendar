@@ -9,7 +9,7 @@ import {
   ChangeDetectionStrategy,
 } from "@angular/core"
 import { CommonModule } from "@angular/common"
-import { DayFlowPortalDirective } from "./day-flow-portal.directive" // adjust path
+import { PortalDirective } from "./portal.directive" // adjust path
 import type {
   ICalendarApp,
   CalendarAppConfig,
@@ -20,8 +20,10 @@ import { CalendarRenderer, CalendarApp } from "@dayflow/core"
 
 @Component ( {
   selector: "app-dayflow-calendar",
-  imports: [ CommonModule, DayFlowPortalDirective ],
-  standalone: true,
+  imports: [
+    CommonModule,
+    PortalDirective
+  ],
   templateUrl: "./day-flow-calendar.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )

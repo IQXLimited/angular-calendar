@@ -4,6 +4,7 @@ node_modules
 .pnp.js
 npm-debug.log
 yarn-error.log
+.angular
 
 # Testing
 coverage

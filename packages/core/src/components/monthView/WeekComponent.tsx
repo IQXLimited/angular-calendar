@@ -5,7 +5,6 @@ import { Temporal } from "temporal-polyfill";
 
 import CalendarEvent from "@/components/calendarEvent";
 import { GridContextMenu } from "@/components/contextMenu";
-import { useLocale } from "@/locale";
 import {
   monthDayCell,
   monthDateNumberContainer,
@@ -325,7 +324,6 @@ const WeekComponent = memo(
     app,
     enableTouch,
   }: WeekComponentProps) => {
-    const { t, locale } = useLocale();
     const [shouldShowMonthTitle, setShouldShowMonthTitle] = useState(false);
     const hideTitleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
       null,
@@ -595,9 +593,8 @@ const WeekComponent = memo(
     ) => {
       // We need to parse currentMonth (localized string) back to month index, OR compare strings
       // Comparing localized month strings is safer than trying to parse back
-      const dayMonthName = day.date.toLocaleDateString(locale, {
-        month:
-          locale.startsWith("zh") || locale.startsWith("ja") ? "short" : "long",
+      const dayMonthName = day.date.toLocaleDateString(undefined, {
+        month: "long",
       });
 
       const belongsToCurrentMonth =
@@ -785,7 +782,7 @@ const WeekComponent = memo(
                 className={` ${monthDateNumber} ${day.isToday ? "bg-primary text-primary-foreground" : belongsToCurrentMonth ? "text-gray-900 dark:text-gray-100" : "text-gray-400 dark:text-gray-600"} `}
               >
                 {day.day === 1 && screenSize === "desktop"
-                  ? day.date.toLocaleDateString(locale, {
+                  ? day.date.toLocaleDateString(undefined, {
                       month: "short",
                       day: "numeric",
                     })
@@ -818,7 +815,7 @@ const WeekComponent = memo(
                 }}
               >
                 +{hiddenEventsCount}
-                {screenSize === "desktop" ? ` ${t("more")}` : ""}
+                {screenSize === "desktop" ? " More" : ""}
               </div>
             )}
           </div>
@@ -828,11 +825,11 @@ const WeekComponent = memo(
 
     const localizedMonthYear = useMemo(() => {
       if (!firstDayOfMonth) return "";
-      return firstDayOfMonth.date.toLocaleDateString(locale, {
+      return firstDayOfMonth.date.toLocaleDateString(undefined, {
         month: "long",
         year: "numeric",
       });
-    }, [firstDayOfMonth, locale]);
+    }, [firstDayOfMonth]);
 
     return (
       <div

@@ -6,7 +6,6 @@ import { Temporal } from "temporal-polyfill";
 import RangePicker from "@/components/rangePicker";
 import { useTheme } from "@/contexts/ThemeContext";
 import { getDefaultCalendarRegistry } from "@/core/calendarRegistry";
-import { useLocale } from "@/locale";
 import { eventDetailPanel } from "@/styles/classNames";
 import { EventDetailPanelProps, CalendarType, ICalendarApp } from "@/types";
 import { isPlainDate } from "@/utils/temporal";
@@ -35,7 +34,6 @@ const DefaultEventDetailPanel = ({
 }: DefaultEventDetailPanelProps) => {
   const { effectiveTheme } = useTheme();
   const appliedTheme = resolveAppliedTheme(effectiveTheme);
-  const { t } = useLocale();
 
   // Local state for debounced inputs
   const [title, setTitle] = useState(event.title);
@@ -312,7 +310,7 @@ const DefaultEventDetailPanel = ({
     >
       <div style={arrowStyle}></div>
       <span className="mb-1 block text-xs text-gray-600 dark:text-gray-300">
-        {t("eventTitle")}
+        Event Title
       </span>
       <div className="mb-3 flex items-center justify-between gap-3">
         <div className="flex-1">
@@ -350,7 +348,7 @@ const DefaultEventDetailPanel = ({
       {isAllDay ? (
         <div className="mb-3">
           <div className="mb-1 text-xs text-gray-600 dark:text-gray-300">
-            {t("dateRange")}
+            Date Range
           </div>
           <RangePicker
             value={[event.start, event.end]}
@@ -360,13 +358,12 @@ const DefaultEventDetailPanel = ({
             matchTriggerWidth
             disabled={!isEditable}
             onChange={handleAllDayRangeChange}
-            locale={app?.state.locale}
           />
         </div>
       ) : (
         <div className="mb-3">
           <div className="mb-1 text-xs text-gray-600 dark:text-gray-300">
-            {t("timeRange")}
+            Time Range
           </div>
           <RangePicker
             value={[event.start, event.end]}
@@ -382,14 +379,13 @@ const DefaultEventDetailPanel = ({
                 end,
               });
             }}
-            locale={app?.state.locale}
           />
         </div>
       )}
 
       <div className="mb-3">
         <span className="mb-1 block text-xs text-gray-600 dark:text-gray-300">
-          {t("note")}
+          Notes
         </span>
         <textarea
           id={`event-note-${event.id}`}
@@ -405,7 +401,7 @@ const DefaultEventDetailPanel = ({
           }
           rows={3}
           className="w-full resize-none rounded-lg border border-slate-200 px-3 py-2 text-sm text-gray-900 shadow-sm transition focus:border-primary focus:ring-2 focus:ring-primary focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-          placeholder={t("addNotePlaceholder")}
+          placeholder={"Notes"}
         />
       </div>
 
@@ -417,7 +413,7 @@ const DefaultEventDetailPanel = ({
               className="rounded bg-primary px-2 py-1 text-xs font-medium text-primary-foreground transition hover:bg-primary"
               onClick={convertToRegular}
             >
-              {t("setAsTimed")}
+              {"Set as Timed Event"}
             </button>
           ) : (
             <button
@@ -425,7 +421,7 @@ const DefaultEventDetailPanel = ({
               className="rounded bg-primary px-2 py-1 text-xs font-medium text-primary-foreground transition hover:bg-primary"
               onClick={convertToAllDay}
             >
-              {t("setAsAllDay")}
+              {"Set as All-day"}
             </button>
           )}
 
@@ -434,7 +430,7 @@ const DefaultEventDetailPanel = ({
             className="rounded bg-destructive px-2 py-1 text-xs font-medium text-destructive-foreground transition hover:bg-destructive/90"
             onClick={() => onEventDelete(event.id)}
           >
-            {t("delete")}
+            Delete
           </button>
         </div>
       )}

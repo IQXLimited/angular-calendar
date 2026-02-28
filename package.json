@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "clean": "turbo run clean && rimraf node_modules pnpm-lock.yaml",
+    "clean": "turbo run clean",
     "dev": "turbo run dev",
     "format": "oxfmt .",
     "format:check": "oxfmt . --check",
@@ -55,6 +55,5 @@
   },
   "volta": {
     "node": "24.14.0"
-  },
-  "packageManager": "pnpm@8.6.0"
+  }
 }

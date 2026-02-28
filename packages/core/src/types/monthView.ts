@@ -7,7 +7,6 @@ export interface UseVirtualMonthScrollProps {
   weekHeight: number
   onCurrentMonthChange?: ( month: string, year: number ) => void
   initialWeeksToLoad?: number
-  locale?: string
   isEnabled?: boolean
 }
 

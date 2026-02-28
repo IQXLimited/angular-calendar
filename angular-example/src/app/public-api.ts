@@ -3,7 +3,7 @@
  */
 
 export * from "./lib/day-flow-calendar.component"
-export * from "./lib/day-flow-portal.directive"
+export * from "./lib/portal.directive"
 
 export {
   CalendarApp,

@@ -1,7 +1,6 @@
 import { useMemo } from "preact/hooks";
 
 import { Loader2 } from "@/components/common/Icons";
-import { useLocale } from "@/locale/useLocale";
 import { CalendarSearchEvent } from "@/types/search";
 import {
   groupSearchResults,
@@ -41,8 +40,6 @@ const SearchResultsList = ({
   onResultClick,
   emptyText,
 }: SearchResultsListProps) => {
-  const { t, locale } = useLocale();
-
   const today = useMemo(() => normalizeDate(new Date()), []);
 
   // Group events by date (sorted)
@@ -57,9 +54,9 @@ const SearchResultsList = ({
   const getEmptyText = () => {
     if (typeof emptyText === "string") return emptyText;
     if (emptyText && typeof emptyText === "object") {
-      return emptyText[locale] || emptyText["en"] || "No results found";
+      return emptyText["en"] || "No results found";
     }
-    return t("noResults") || "No results found";
+    return "No results found";
   };
 
   if (loading) {
@@ -85,9 +82,7 @@ const SearchResultsList = ({
       {groupedEvents.map((group) => {
         const { title, colorClass } = getSearchHeaderInfo(
           group.date,
-          today,
-          locale,
-          t,
+          today
         );
 
         return (
@@ -107,11 +102,11 @@ const SearchResultsList = ({
                   minute: "2-digit",
                 };
                 const startTimeStr = event.allDay
-                  ? t("allDay") || "All Day"
-                  : start.toLocaleTimeString(locale, timeOpt);
+                  ? "All Day"
+                  : start.toLocaleTimeString(undefined, timeOpt);
                 const endTimeStr = event.allDay
                   ? ""
-                  : end.toLocaleTimeString(locale, timeOpt);
+                  : end.toLocaleTimeString(undefined, timeOpt);
 
                 return (
                   <div key={event.id}>

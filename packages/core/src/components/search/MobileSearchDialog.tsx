@@ -2,7 +2,6 @@ import { createPortal } from "preact/compat";
 import { useRef, useEffect } from "preact/hooks";
 
 import { ArrowLeft, X } from "@/components/common/Icons";
-import { useLocale } from "@/locale";
 import { mobileFullscreen, borderBottom } from "@/styles/classNames";
 import { CalendarSearchEvent } from "@/types/search";
 
@@ -30,7 +29,6 @@ const MobileSearchDialog = ({
   emptyText,
 }: MobileSearchDialogProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { t } = useLocale();
 
   useEffect(() => {
     if (isOpen) {
@@ -67,7 +65,7 @@ const MobileSearchDialog = ({
           <input
             ref={inputRef}
             type="text"
-            placeholder={t("search") || "Search"}
+            placeholder={"Search"}
             value={keyword}
             onChange={(e) => {
               const val = (e.target as HTMLInputElement).value;

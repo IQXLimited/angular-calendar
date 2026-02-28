@@ -1,6 +1,5 @@
 import { MiniCalendar } from "@/components/common/MiniCalendar";
 import TodayBox from "@/components/common/TodayBox";
-import { useLocale } from "@/locale";
 import {
   miniCalendarContainer,
   headerContainer,
@@ -46,8 +45,6 @@ export const RightPanel = ({
   handleDateSelect,
   switcherMode,
 }: RightPanelProps) => {
-  const { t, locale } = useLocale();
-
   const sortedEvents = [...currentDayEvents].toSorted((a, b) => {
     if (a.allDay && !b.allDay) return -1;
     if (!a.allDay && b.allDay) return 1;
@@ -91,7 +88,7 @@ export const RightPanel = ({
             <h3
               className={`${textLg} font-semibold ${mb3} sticky top-0 z-10 bg-white py-2 dark:bg-gray-900`}
             >
-              {currentDate.toLocaleDateString(locale, {
+              {currentDate.toLocaleDateString(undefined, {
                 weekday: "long",
                 month: "long",
                 day: "numeric",
@@ -99,7 +96,7 @@ export const RightPanel = ({
             </h3>
 
             {sortedEvents.length === 0 ? (
-              <p className={`${textGray500} ${textSm}`}>{t("noEvents")}</p>
+              <p className={`${textGray500} ${textSm}`}>No events</p>
             ) : (
               <div className="space-y-2">
                 {sortedEvents.map((event: Event) => (
@@ -123,7 +120,7 @@ export const RightPanel = ({
                     )}
                     {event.allDay && (
                       <div className={`${textXs} ${textGray600}`}>
-                        {t("allDay")}
+                        All day
                       </div>
                     )}
                   </div>

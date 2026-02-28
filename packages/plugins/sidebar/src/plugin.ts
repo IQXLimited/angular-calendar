@@ -9,7 +9,6 @@ import {
   normalizeCssWidth,
   getCalendarColorsForHex,
   generateUniKey,
-  useLocale,
   ContentSlot,
   CreateCalendarDialog,
 } from "@dayflow/core"
@@ -78,7 +77,6 @@ export function createSidebarPlugin (
 
       registerSidebarImplementation (
         ( app: ICalendarApp ): SidebarBridgeReturn => {
-          const { t } = useLocale ()
 
           const [ isCollapsed, setIsCollapsed ] = useState (
             config.initialCollapsed ?? false,
@@ -137,7 +135,7 @@ export function createSidebarPlugin (
 
             const newCalendar: CalendarType = {
               id: newId,
-              name: t ( "untitled" ),
+              name: "Untitled",
               colors,
               darkColors,
               isVisible: true,
@@ -147,7 +145,7 @@ export function createSidebarPlugin (
             app.createCalendar ( newCalendar )
             setEditingCalendarId ( newId )
             refreshSidebar ()
-          }, [ app, t, refreshSidebar ] )
+          }, [ app, refreshSidebar ] )
 
           const sidebarProps: CalendarSidebarRenderProps = useMemo (
             () => ( {

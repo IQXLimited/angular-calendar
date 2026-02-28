@@ -10,7 +10,7 @@ import {
   createWeekView,
   createDayView
 } from "../../../packages/core"
-import { ViewType, CalendarType, EventChange, CalendarAppConfig, UseCalendarAppReturn } from "../../../packages/core"
+import { ViewType, CalendarType, EventChange, CalendarAppConfig, UseCalendarAppReturn, CalendarApp } from "../../../packages/core"
 import { DayFlowCalendarComponent, ICalendarApp } from "./public-api"
 import { getWebsiteCalendars } from "./utils/palette"
 import { generateSampleEvents } from "./utils/sampleData"
@@ -48,7 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private initializeCalendar ( ) {
-    this.calendar.set ( {
+    this.calendar.set ( new CalendarApp ( {
       views: [
         createDayView ( { } ),
         createWeekView ( ),
@@ -103,6 +103,6 @@ export class AppComponent implements OnInit, OnDestroy {
           console.log ( "batch change events:", event )
         }
       }
-    } )
+    } ) )
   }
 }

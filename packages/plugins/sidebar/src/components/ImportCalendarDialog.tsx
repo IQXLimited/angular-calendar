@@ -2,7 +2,6 @@ import {
   createPortal,
   CalendarType,
   cancelButton,
-  useLocale,
   Check,
   ChevronsUpDown,
 } from "@dayflow/core";
@@ -23,7 +22,6 @@ export const ImportCalendarDialog = ({
   onConfirm,
   onCancel,
 }: ImportCalendarDialogProps) => {
-  const { t } = useLocale();
   const [selectedCalendarId, setSelectedCalendarId] = useState<string>(
     calendars[0]?.id || NEW_CALENDAR_ID,
   );
@@ -110,7 +108,7 @@ export const ImportCalendarDialog = ({
             <span
               className={`flex-1 truncate text-sm ${isNewSelected ? "font-medium text-primary" : "pl-6 text-gray-700 dark:text-gray-200"}`}
             >
-              {t("newCalendar") || "New Calendar"}: {filename}
+              {"New Calendar"}: {filename}
             </span>
             {isNewSelected && (
               <Check className="ml-2 h-4 w-4 shrink-0 text-primary" />
@@ -126,11 +124,10 @@ export const ImportCalendarDialog = ({
     <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/50">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl dark:bg-slate-900">
         <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
-          {t("addSchedule") || "Add Schedule"}
+          {"Add Schedule"}
         </h2>
         <p className="mb-4 text-sm text-gray-600 dark:text-gray-300">
-          {t("importCalendarMessage") ||
-            "This calendar contains new events. Please select a target calendar."}
+          {"This calendar contains new events. Please select a target calendar."}
         </p>
 
         <div className="relative">
@@ -150,7 +147,7 @@ export const ImportCalendarDialog = ({
               className={`flex-1 truncate text-left text-sm font-medium text-gray-700 dark:text-gray-200 ${isNewSelected ? "pl-0" : ""}`}
             >
               {isNewSelected
-                ? `${t("newCalendar")}: ${filename}`
+                ? `New Calendar: ${filename}`
                 : selectedCalendar?.name || selectedCalendar?.id}
             </span>
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 text-gray-400" />
@@ -160,14 +157,14 @@ export const ImportCalendarDialog = ({
 
         <div className="mt-8 flex justify-end gap-3">
           <button type="button" onClick={onCancel} className={cancelButton}>
-            {t("cancel") || "Cancel"}
+            {"Cancel"}
           </button>
           <button
             type="button"
             onClick={() => onConfirm(selectedCalendarId)}
             className="rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
           >
-            {t("ok") || "OK"}
+            {"OK"}
           </button>
         </div>
       </div>

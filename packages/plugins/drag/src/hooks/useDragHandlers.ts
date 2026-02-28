@@ -13,7 +13,6 @@ import {
   createDateWithHour,
   getEndOfDay,
   getEventEndHour,
-  useLocale,
   temporalToDate,
   dateToZonedDateTime,
   dateToPlainDate,
@@ -41,7 +40,6 @@ const getClientCoordinates = ( e: MouseEvent | TouchEvent ) => {
 export const useDragHandlers = (
   params: UseDragHandlersParams,
 ): UseDragHandlersReturn => {
-  const { t } = useLocale ()
   const { options, common, state, manager } = params
   const {
     viewType,
@@ -627,7 +625,7 @@ export const useDragHandlers = (
 
           if ( !drag.indicatorVisible ) {
             if ( distance < 3 ) return
-            createDragIndicator ( drag, "blue", t ( "newAllDayEvent" ) )
+            createDragIndicator ( drag, "blue", "New All-day Event" )
             drag.indicatorVisible = true
           }
 
@@ -1169,7 +1167,7 @@ export const useDragHandlers = (
 
           onEventCreate ?. ( {
             id: String ( Date.now () ),
-            title: isAllDay ? t ( "newAllDayEvent" ) : t ( "newEvent" ),
+            title: isAllDay ? "New All-day Event" : "New Event",
             day: drag.dayIndex,
             start: startTemporal,
             end: endTemporal,
@@ -1266,7 +1264,7 @@ export const useDragHandlers = (
 
         const newEvent: Event = {
           id: String ( Date.now () ),
-          title: t ( "newEvent" ),
+          title: "New Event",
           start: startTemporal,
           end: endTemporal,
           day: targetDate.getDay (),
@@ -1324,7 +1322,7 @@ export const useDragHandlers = (
           drag.startHour,
           drag.endHour,
         )
-        createDragIndicator ( drag, "blue", t ( "newEvent" ), newEventLayout )
+        createDragIndicator ( drag, "blue", "New Event", newEventLayout )
         drag.sourceElement = null
         drag.indicatorVisible = true
         document.addEventListener ( "mousemove", handleDragMove )

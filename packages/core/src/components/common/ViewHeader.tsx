@@ -1,4 +1,3 @@
-import { useLocale } from "@/locale";
 import {
   headerContainer,
   headerTitle,
@@ -54,7 +53,6 @@ const ViewHeader = ({
   nextYear,
   nextYearOffset = 0,
 }: ViewHeaderProps) => {
-  const { locale } = useLocale();
   // Determine whether to show TodayBox based on view type
   // Default: show for all views if callbacks are provided, unless explicitly set to false
   const shouldShowTodayBox = showTodayBox === undefined ? true : showTodayBox;
@@ -63,14 +61,14 @@ const ViewHeader = ({
   const getDefaultTitle = (): string => {
     switch (viewType) {
       case "day":
-        return currentDate.toLocaleDateString(locale, {
+        return currentDate.toLocaleDateString(undefined, {
           day: "numeric",
           month: "long",
           year: "numeric",
         });
       case "week":
       case "month":
-        return currentDate.toLocaleDateString(locale, {
+        return currentDate.toLocaleDateString(undefined, {
           month: "long",
           year: "numeric",
         });
@@ -84,7 +82,7 @@ const ViewHeader = ({
   // Generate default subtitle (only for Day view)
   const getDefaultSubtitle = (): string | null => {
     if (viewType === "day") {
-      return currentDate.toLocaleDateString(locale, {
+      return currentDate.toLocaleDateString(undefined, {
         weekday: "long",
       });
     }

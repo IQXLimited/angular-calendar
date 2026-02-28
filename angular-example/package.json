@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "build:css": "node ./build-css.mjs",
-    "start": "npm run build:css && ng serve",
+    "prestart": "npm i && npm run build:css",
+    "start": "ng serve",
     "build": "npm run build:css && ng-packagr -p ng-packagr.json",
     "clean": "rimraf dist node_modules",
     "lint": "npx --yes eslint",
@@ -23,7 +24,6 @@
   },
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@8.6.0",
   "devDependencies": {
     "@angular/build": "^21.2.0",
     "@angular/cli": "^21.2.0",
@@ -54,5 +54,8 @@
     "@angular/common": ">=19.0.0",
     "@angular/core": ">=19.0.0",
     "@dayflow/core": ">=19.0.0"
+  },
+  "volta": {
+    "node": "24.14.0"
   }
 }

@@ -1,8 +1,7 @@
 import {
   createPortal,
   ChevronRight,
-  CalendarType,
-  useLocale,
+  CalendarType
 } from "@dayflow/core";
 import { useState, useRef, useEffect } from "preact/hooks";
 
@@ -19,7 +18,6 @@ export const MergeMenuItem = ({
   currentCalendarId,
   onMergeSelect,
 }: MergeMenuItemProps) => {
-  const { t } = useLocale();
   const [isHovered, setIsHovered] = useState(false);
   const itemRef = useRef<HTMLDivElement>(null);
   const submenuRef = useRef<HTMLDivElement>(null);
@@ -65,7 +63,7 @@ export const MergeMenuItem = ({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <span>{t("merge")}</span>
+        <span>Merge</span>
         <ChevronRight className="h-4 w-4" />
       </div>
       {isHovered &&

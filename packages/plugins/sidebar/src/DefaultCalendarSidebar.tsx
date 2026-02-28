@@ -15,7 +15,6 @@ import {
   ContentSlot,
   DefaultColorPicker,
   MiniCalendar,
-  useLocale,
   sidebarContainer,
   importICSFile,
   downloadICS,
@@ -47,7 +46,6 @@ const DefaultCalendarSidebar = ({
   onCreateCalendar,
   colorPickerMode = "default",
 }: CalendarSidebarRenderProps) => {
-  const { t } = useLocale();
 
   const [localEditingCalendarId, setLocalEditingCalendarId] = useState<
     string | null
@@ -468,17 +466,17 @@ const DefaultCalendarSidebar = ({
                 )
               ) : (
                 <>
-                  <ContextMenuLabel>{t("calendarOptions")}</ContextMenuLabel>
+                  <ContextMenuLabel>{"Calendar Options"}</ContextMenuLabel>
                   <MergeMenuItem
                     calendars={calendars}
                     currentCalendarId={contextMenu.calendarId}
                     onMergeSelect={handleMergeSelect}
                   />
                   <ContextMenuItem onClick={handleDeleteCalendar}>
-                    {t("delete")}
+                    {"Delete"}
                   </ContextMenuItem>
                   <ContextMenuItem onClick={handleExportCalendar}>
-                    {t("exportCalendar") || "Export Calendar"}
+                    {"Export Calendar"}
                   </ContextMenuItem>
                   <ContextMenuSeparator />
                   <ContextMenuColorPicker
@@ -510,10 +508,10 @@ const DefaultCalendarSidebar = ({
                 handleCloseSidebarContextMenu();
               }}
             >
-              {t("newCalendar") || "New Calendar"}
+              {"New Calendar"}
             </ContextMenuItem>
             <ContextMenuItem onClick={handleImportClick}>
-              {t("importCalendar") || "Import Calendar"}
+              {"Import Calendar"}
             </ContextMenuItem>
             <ContextMenuItem
               onClick={() => {
@@ -521,7 +519,7 @@ const DefaultCalendarSidebar = ({
                 handleCloseSidebarContextMenu();
               }}
             >
-              {t("refreshAll") || "Refresh All"}
+              {"Refresh All"}
             </ContextMenuItem>
           </ContextMenu>,
           document.body,

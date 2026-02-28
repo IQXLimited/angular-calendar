@@ -3,7 +3,6 @@ import { createPortal, forwardRef } from "preact/compat";
 import { useEffect, useRef, useState } from "preact/hooks";
 
 import { ChevronRight } from "@/components/common/Icons";
-import { useLocale } from "@/locale";
 
 interface ContextMenuProps {
   x: number;
@@ -286,7 +285,6 @@ export const ContextMenuColorPicker = ({
   onSelect: (color: string) => void;
   onCustomColor?: () => void;
 }) => {
-  const { t } = useLocale();
   return (
     <div>
       <div className="grid grid-cols-7 gap-2 p-1 px-3">
@@ -316,7 +314,7 @@ export const ContextMenuColorPicker = ({
             onCustomColor();
           }}
         >
-          {t("customColor")}
+          Custom Color...
         </div>
       )}
     </div>

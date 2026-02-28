@@ -1,8 +1,7 @@
 import {
   createPortal,
   CalendarType,
-  cancelButton,
-  useLocale,
+  cancelButton
 } from "@dayflow/core";
 import { useState } from "preact/hooks";
 
@@ -28,7 +27,6 @@ export const DeleteCalendarDialog = ({
   onMergeSelect,
 }: DeleteCalendarDialogProps) => {
   const [showMergeDropdown, setShowMergeDropdown] = useState(false);
-  const { t } = useLocale();
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50">
@@ -36,10 +34,10 @@ export const DeleteCalendarDialog = ({
         {step === "initial" ? (
           <>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {t("deleteCalendar", { calendarName })}
+              {`Delete "${calendarName}"?`}
             </h2>
             <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
-              {t("deleteCalendarMessage", { calendarName })}
+              {`Do you want to delete "${calendarName}" or merge its events into another existing calendar?`}
             </p>
             <div className="mt-6 flex items-center justify-between">
               <div className="relative">
@@ -48,7 +46,7 @@ export const DeleteCalendarDialog = ({
                   onClick={() => setShowMergeDropdown(!showMergeDropdown)}
                   className="flex items-center gap-1 rounded-md border border-gray-300 px-4 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-slate-700"
                 >
-                  {t("merge")}
+                  Merge
                 </button>
                 {showMergeDropdown && (
                   <div className="absolute top-full left-0 z-10 mt-1 max-h-60 w-max min-w-full overflow-y-auto rounded-md border border-gray-200 bg-background shadow-lg dark:border-slate-700">
@@ -83,14 +81,14 @@ export const DeleteCalendarDialog = ({
                   onClick={onCancel}
                   className={cancelButton}
                 >
-                  {t("cancel")}
+                  Cancel
                 </button>
                 <button
                   type="button"
                   onClick={() => onStepChange("confirm_delete")}
                   className="rounded-md bg-destructive px-4 py-2 text-xs font-medium text-destructive-foreground hover:bg-destructive/90"
                 >
-                  {t("delete")}
+                  Delete
                 </button>
               </div>
             </div>
@@ -98,10 +96,10 @@ export const DeleteCalendarDialog = ({
         ) : (
           <>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {t("confirmDeleteTitle", { calendarName })}
+              {`Are you sure you want to delete the calendar "${calendarName}"?`}
             </h2>
             <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
-              {t("confirmDeleteMessage")}
+              If you delete this calendar, all events associated with the calendar will also be deleted.
             </p>
             <div className="mt-6 flex justify-end gap-3">
               <button
@@ -109,14 +107,14 @@ export const DeleteCalendarDialog = ({
                 onClick={onCancel}
                 className="rounded-md border border-border bg-background px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-700"
               >
-                {t("cancel")}
+                Cancel
               </button>
               <button
                 type="button"
                 onClick={onConfirmDelete}
                 className="rounded-md bg-destructive px-3 py-2 text-xs font-medium text-destructive-foreground hover:bg-destructive/90"
               >
-                {t("delete")}
+                Delete
               </button>
             </div>
           </>

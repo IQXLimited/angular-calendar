@@ -12,7 +12,6 @@ import ViewHeader from "@/components/common/ViewHeader";
 import { GridContextMenu } from "@/components/contextMenu";
 import { groupDaysIntoRows } from "@/components/yearView/utils";
 import { YearRowComponent } from "@/components/yearView/YearRowComponent";
-import { useLocale } from "@/locale";
 import { useDragForView } from "@/plugins/dragBridge";
 import {
   monthViewContainer,
@@ -53,7 +52,6 @@ export const DefaultYearView = ({
   detailPanelEventId: propDetailPanelEventId,
   onDetailPanelToggle: propOnDetailPanelToggle,
 }: YearViewProps) => {
-  const { t, locale } = useLocale();
   const currentDate = app.getCurrentDate();
   const currentYear = currentDate.getFullYear();
   const rawEvents = app.getEvents();
@@ -229,7 +227,7 @@ export const DefaultYearView = ({
         });
         const newEvent: Event = {
           id: `event-${Date.now()}`,
-          title: t("newEvent") || "New Event",
+          title: "New Event",
           start: plainDate,
           end: plainDate,
           allDay: true,
@@ -240,7 +238,7 @@ export const DefaultYearView = ({
         setNewlyCreatedEventId(newEvent.id);
       }
     },
-    [showTimedEvents, handleCreateStart, app, t],
+    [showTimedEvents, handleCreateStart, app],
   );
 
   // Generate all days for the current year
@@ -282,8 +280,7 @@ export const DefaultYearView = ({
   }, [rawEvents, currentYear, showTimedEvents]);
 
   const getCustomTitle = () => {
-    const isAsianLocale = locale.startsWith("zh") || locale.startsWith("ja");
-    return isAsianLocale ? `${currentYear}年` : `${currentYear}`;
+    return `${currentYear}`;
   };
 
   return (
@@ -333,7 +330,6 @@ export const DefaultYearView = ({
               columnsPerRow={columnsPerRow}
               app={app}
               calendarRef={calendarRef}
-              locale={locale}
               isDragging={isDragging}
               dragState={dragState as MonthEventDragState}
               onMoveStart={handleMoveStart}

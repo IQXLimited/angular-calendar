@@ -1,5 +1,4 @@
 import { Check } from "@/components/common/Icons";
-import { useLocale } from "@/locale";
 import { Event, ICalendarApp, TNode } from "@/types";
 import { clipboardStore } from "@/utils/clipboardStore";
 
@@ -29,7 +28,6 @@ const EventContextMenu = ({
   onClose,
   app,
 }: EventContextMenuProps) => {
-  const { t } = useLocale();
   const calendars = app.getCalendars();
 
   const handleMoveToCalendar = (calendarId: string) => {
@@ -78,7 +76,7 @@ const EventContextMenu = ({
       {/* Group 2: Calendar Submenu */}
       <ContextMenuSub>
         <ContextMenuSubTrigger>
-          {t("calendars") || "Calendars"}
+          {"Calendars"}
         </ContextMenuSubTrigger>
         <ContextMenuSubContent>
           {calendars.map((cal) => {
@@ -114,11 +112,11 @@ const EventContextMenu = ({
 
       {/* Group 3: Delete, Cut, Copy */}
       <ContextMenuItem onClick={handleDelete} danger>
-        {t("delete") || "Delete"}
+        {"Delete"}
       </ContextMenuItem>
-      <ContextMenuItem onClick={handleCut}>{t("cut") || "Cut"}</ContextMenuItem>
+      <ContextMenuItem onClick={handleCut}>{"Cut"}</ContextMenuItem>
       <ContextMenuItem onClick={handleCopy}>
-        {t("copy") || "Copy"}
+        {"Copy"}
       </ContextMenuItem>
 
       {/* Group 4: Custom Slot */}

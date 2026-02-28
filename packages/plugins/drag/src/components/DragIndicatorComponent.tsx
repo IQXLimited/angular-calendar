@@ -1,7 +1,6 @@
 import {
   DragIndicatorProps,
-  DragIndicatorRenderer,
-  useLocale,
+  DragIndicatorRenderer
 } from "@dayflow/core";
 
 import { DefaultDragIndicatorRenderer } from "./DefaultDragIndicator";
@@ -22,8 +21,7 @@ const DragIndicatorComponent = ({
   renderer = DefaultDragIndicatorRenderer,
   isMobile,
 }: DragIndicatorComponentProps) => {
-  const { t } = useLocale();
-  const eventTitle = title || (allDay ? t("newAllDayEvent") : t("newEvent"));
+  const eventTitle = title || (allDay ? "New All-day Event" : "New Event");
 
   const renderContent = () => {
     if (color) {

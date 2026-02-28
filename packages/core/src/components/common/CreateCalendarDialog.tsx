@@ -8,7 +8,6 @@ import { useState, useMemo } from "preact/hooks";
 
 import { useTheme } from "@/contexts/ThemeContext";
 import { getCalendarColorsForHex } from "@/core/calendarRegistry";
-import { useLocale } from "@/locale";
 import { ContentSlot } from "@/renderer/ContentSlot";
 import { CalendarType, CreateCalendarDialogProps } from "@/types";
 import { generateUniKey } from "@/utils/helpers";
@@ -32,7 +31,6 @@ export const CreateCalendarDialog = ({
   onCreate,
   colorPickerMode = "default",
 }: CreateCalendarDialogProps) => {
-  const { t } = useLocale();
   const { effectiveTheme } = useTheme();
   const [name, setName] = useState("");
 
@@ -172,7 +170,7 @@ export const CreateCalendarDialog = ({
         <h2
           className={`text-lg font-semibold text-gray-900 dark:text-white ${colorPickerMode === "default" ? "mb-6" : "mb-4"}`}
         >
-          {t("createCalendar")}
+          Create Calendar
         </h2>
 
         <form onSubmit={handleSubmit}>
@@ -189,7 +187,7 @@ export const CreateCalendarDialog = ({
                     setName((e.target as HTMLInputElement).value)
                   }
                   className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-gray-900 shadow-sm transition focus:border-primary focus:ring-2 focus:ring-primary focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-                  placeholder={t("calendarNamePlaceholder")}
+                  placeholder={"e.g. Work"}
                   autoFocus
                 />
               </div>
@@ -226,7 +224,7 @@ export const CreateCalendarDialog = ({
                       setName((e.target as HTMLInputElement).value)
                     }
                     className="w-full flex-1 rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-gray-900 shadow-sm transition focus:border-primary focus:ring-2 focus:ring-primary focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-                    placeholder={t("calendarNamePlaceholder")}
+                    placeholder={"e.g. Work"}
                     autoFocus
                   />
                 </div>
@@ -255,7 +253,7 @@ export const CreateCalendarDialog = ({
                     onClick={handleOpenPicker}
                     className="flex w-full cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm text-slate-700 transition-colors hover:bg-slate-100 focus:bg-slate-100 focus:outline-none dark:text-slate-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800"
                   >
-                    {t("customColor")}
+                    Custom Color
                   </button>
 
                   {showPicker && (
@@ -308,14 +306,14 @@ export const CreateCalendarDialog = ({
               onClick={onClose}
               className="rounded border border-slate-200 px-2 py-1 text-xs font-medium text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
             >
-              {t("cancel")}
+              Cancel
             </button>
             <button
               type="submit"
               disabled={!name.trim()}
               className="rounded bg-primary px-2 py-1 text-xs font-medium text-primary-foreground transition hover:bg-primary/90 disabled:opacity-50"
             >
-              {t("create")}
+              Create
             </button>
           </div>
         </form>

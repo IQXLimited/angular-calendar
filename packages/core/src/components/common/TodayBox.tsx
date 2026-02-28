@@ -1,4 +1,3 @@
-import { useLocale } from "@/locale";
 import {
   calendarNavButton,
   calendarTodayButton,
@@ -18,7 +17,6 @@ const TodayBox = ({
   handleToday,
   handleNextMonth,
 }: Props) => {
-  const { t } = useLocale();
   return (
     <div className="df-navigation flex items-center gap-1">
       <button
@@ -34,7 +32,7 @@ const TodayBox = ({
         className={calendarTodayButton}
         onClick={handleToday}
       >
-        {t("today")}
+        Today
       </button>
       <button
         type="button"

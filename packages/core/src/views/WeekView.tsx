@@ -16,7 +16,6 @@ import {
 import { defaultDragConfig } from "@/core/config";
 import { useCalendarDrop } from "@/hooks/useCalendarDrop";
 import { useResponsiveMonthConfig } from "@/hooks/virtualScroll";
-import { useLocale } from "@/locale";
 import { useDragForView } from "@/plugins/dragBridge";
 import { calendarContainer } from "@/styles/classNames";
 import {
@@ -28,6 +27,7 @@ import {
 } from "@/types";
 import { formatTime, extractHourFromDate } from "@/utils";
 import { temporalToDate } from "@/utils/temporal";
+import { getWeekDaysLabels } from "@/locale";
 
 const WeekView = ({
   app,
@@ -41,8 +41,6 @@ const WeekView = ({
   detailPanelEventId: propDetailPanelEventId,
   onDetailPanelToggle: propOnDetailPanelToggle,
 }: WeekViewProps & { calendarRef: RefObject<HTMLDivElement> }) => {
-  const { t, getWeekDaysLabels, locale } = useLocale();
-
   // Stabilize currentDate reference to avoid unnecessary re-renders
   // app.getCurrentDate() returns a new Date object every time
   const rawCurrentDate = app.getCurrentDate();
@@ -505,31 +503,17 @@ const WeekView = ({
       return Array.from({ length: displayDays }, (_, i) => {
         const d = new Date(displayStart);
         d.setDate(d.getDate() + i);
-        return d.toLocaleDateString(locale, { weekday: "short" });
+        return d.toLocaleDateString("en-US", { weekday: "short" });
       });
     }
-    return getWeekDaysLabels(locale, "short");
-  }, [locale, getWeekDaysLabels, isCompact, displayStart, displayDays]);
+    return getWeekDaysLabels("short");
+  }, [getWeekDaysLabels, isCompact, displayStart, displayDays]);
 
-  const mobileWeekDaysLabels = useMemo(() => {
-    if (!isMobile) return [];
-    const lang = locale.split("-")[0].toLowerCase();
-    if (lang === "zh" || lang === "ja") {
-      return getWeekDaysLabels(locale, "narrow");
-    }
-    // English or other languages: M, Tu, W, Th, F, Sa, Su
-    return weekDaysLabels.map((label) => {
-      if (lang === "en") {
-        if (label.startsWith("Tu")) return "Tu";
-        if (label.startsWith("Th")) return "Th";
-        if (label.startsWith("Sa")) return "Sa";
-        if (label.startsWith("Su")) return "Su";
-      }
-      return label.charAt(0);
-    });
-  }, [isMobile, locale, getWeekDaysLabels, weekDaysLabels]);
+  const mobileWeekDaysLabels = !isMobile ? [] : weekDaysLabels.map ( label => {
+    return label.slice (0, 2); // Take first 2 characters to ensure it fits in narrow space
+  } );
 
-  const allDayLabelText = useMemo(() => t("allDay"), [t]);
+  const allDayLabelText = "All day"
 
   const timeSlots = Array.from({ length: 24 }, (_, i) => ({
     hour: i + FIRST_HOUR,
@@ -547,12 +531,12 @@ const WeekView = ({
       dateOnly.setHours(0, 0, 0, 0);
       return {
         date: date.getDate(),
-        month: date.toLocaleString(locale, { month: "short" }),
+        month: date.toLocaleString("en-US", { month: "short" }),
         fullDate: new Date(date),
         isToday: dateOnly.getTime() === today.getTime(),
       };
     });
-  }, [displayStart, weekDaysLabels, locale]);
+  }, [displayStart, weekDaysLabels]);
 
   // Generate full 7-day week data for mobile header
   const fullWeekDates = useMemo(() => {
@@ -566,15 +550,15 @@ const WeekView = ({
       dateOnly.setHours(0, 0, 0, 0);
       return {
         date: date.getDate(),
-        month: date.toLocaleString(locale, { month: "short" }),
+        month: date.toLocaleString("en-US", { month: "short" }),
         fullDate: new Date(date),
         isToday: dateOnly.getTime() === today.getTime(),
         isCurrent:
           dateOnly.getTime() === new Date(currentDate).setHours(0, 0, 0, 0),
-        dayName: date.toLocaleDateString(locale, { weekday: "short" }),
+        dayName: date.toLocaleDateString("en-US", { weekday: "short" }),
       };
     });
-  }, [standardWeekStart, locale, currentDate]);
+  }, [standardWeekStart, currentDate]);
 
   // Sync horizontal transform for swipe
   useEffect(() => {
