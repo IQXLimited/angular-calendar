@@ -21,6 +21,8 @@ export * from "./factories"
 
 // Plugins
 export { createEventsPlugin } from "./plugins/eventsPlugin"
+export { createDragPlugin } from "./plugins/drag"
+export { createSidebarPlugin } from "./plugins/sidebar"
 export {
   registerDragImplementation,
   useDragForView,

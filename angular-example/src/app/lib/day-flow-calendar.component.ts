@@ -7,16 +7,11 @@ import {
   signal,
   effect,
   ChangeDetectionStrategy,
+  ViewEncapsulation,
 } from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { PortalDirective } from "./portal.directive" // adjust path
-import type {
-  ICalendarApp,
-  CalendarAppConfig,
-  UseCalendarAppReturn,
-  CustomRendering,
-} from "@dayflow/core"
-import { CalendarRenderer, CalendarApp } from "@dayflow/core"
+import { UseCalendarAppReturn, ICalendarApp, CalendarAppConfig, CustomRendering, CalendarApp, CalendarRenderer } from "../../../../packages/core"
 
 @Component ( {
   selector: "app-dayflow-calendar",
@@ -25,7 +20,9 @@ import { CalendarRenderer, CalendarApp } from "@dayflow/core"
     PortalDirective
   ],
   templateUrl: "./day-flow-calendar.component.html",
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
+  encapsulation: ViewEncapsulation.None
 } )
 export class DayFlowCalendarComponent {
   // --- Signal Inputs ---

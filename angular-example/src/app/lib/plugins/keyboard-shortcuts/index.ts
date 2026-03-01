@@ -9,7 +9,7 @@ import {
   dateToZonedDateTime,
   dateToPlainDate,
   getWeekRange,
-} from "@dayflow/core"
+} from "../../../../../../packages/core"
 import { Temporal } from "temporal-polyfill"
 
 export interface KeyboardShortcutsConfig {
