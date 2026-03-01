@@ -16,9 +16,6 @@ export * from "./types"
 // Utils
 export * from "./utils"
 
-// Locale
-export * from "./locale"
-
 // Factories
 export * from "./factories"
 

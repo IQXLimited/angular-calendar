@@ -35,18 +35,18 @@ export interface KeyboardShortcutsConfig {
   }
 }
 
-function handleTabNavigation ( app: ICalendarApp, reverse: boolean ) {
-  const events = app.getEvents ()
+const handleTabNavigation = ( app: ICalendarApp, reverse: boolean ) => {
+  const events = app.getEvents ( )
   const currentView = app.state.currentView
-  const currentDate = app.getCurrentDate ()
+  const currentDate = app.getCurrentDate ( )
 
-  let visibleEvents: Event[] = []
+  let visibleEvents: Event [ ] = [ ]
 
   switch ( currentView ) {
     case ViewType.DAY: {
       visibleEvents = events.filter ( e => {
         const s = temporalToDate ( e.start )
-        return s.toDateString () === currentDate.toDateString ()
+        return s.toDateString  ( ) === currentDate.toDateString ( )
       } )
       break
     }
@@ -59,15 +59,15 @@ function handleTabNavigation ( app: ICalendarApp, reverse: boolean ) {
       break
     }
     case ViewType.MONTH: {
-      const visibleMonth = app.getVisibleMonth ()
+      const visibleMonth = app.getVisibleMonth ( )
       const start = new Date (
-        visibleMonth.getFullYear (),
-        visibleMonth.getMonth (),
+        visibleMonth.getFullYear ( ),
+        visibleMonth.getMonth ( ),
         1,
       )
       const end = new Date (
-        visibleMonth.getFullYear (),
-        visibleMonth.getMonth () + 1,
+        visibleMonth.getFullYear ( ),
+        visibleMonth.getMonth ( ) + 1,
         0,
       )
       visibleEvents = events.filter ( e => {
@@ -77,14 +77,14 @@ function handleTabNavigation ( app: ICalendarApp, reverse: boolean ) {
       break
     }
     case ViewType.YEAR: {
-      const year = currentDate.getFullYear ()
+      const year = currentDate.getFullYear ( )
       const yearConfig = app.getViewConfig ( ViewType.YEAR )
       const showTimedEvents =
         ( yearConfig as { showTimedEventsInYearView?: boolean } )
           .showTimedEventsInYearView ?? false
       visibleEvents = events.filter ( e => {
         if ( !showTimedEvents && !e.allDay ) return false
-        return temporalToDate ( e.start ).getFullYear () === year
+        return temporalToDate ( e.start ).getFullYear ( ) === year
       } )
       break
     }
@@ -95,7 +95,7 @@ function handleTabNavigation ( app: ICalendarApp, reverse: boolean ) {
   visibleEvents.sort ( ( a, b ) => {
     const dateA = temporalToDate ( a.start )
     const dateB = temporalToDate ( b.start )
-    const timeDiff = dateA.getTime () - dateB.getTime ()
+    const timeDiff = dateA.getTime ( ) - dateB.getTime ( )
     if ( timeDiff !== 0 ) return timeDiff
     if ( a.allDay && !b.allDay ) return -1
     if ( !a.allDay && b.allDay ) return 1
@@ -126,11 +126,11 @@ function handleTabNavigation ( app: ICalendarApp, reverse: boolean ) {
   }
 }
 
-async function handlePaste ( app: ICalendarApp ) {
+const handlePaste = async ( app: ICalendarApp ) => {
   try {
-    let eventData = clipboardStore.getEvent ()
+    let eventData = clipboardStore.getEvent ( )
     if ( !eventData ) {
-      const text = await navigator.clipboard.readText ()
+      const text = await navigator.clipboard.readText ( )
       if ( text ) {
         try {
           eventData = JSON.parse ( text )
@@ -147,48 +147,48 @@ async function handlePaste ( app: ICalendarApp ) {
     ) {
       const originalStart = temporalToDate ( eventData.start as unknown as Date )
       const originalEnd = temporalToDate ( eventData.end as unknown as Date )
-      const duration = originalEnd.getTime () - originalStart.getTime ()
+      const duration = originalEnd.getTime ( ) - originalStart.getTime ( )
 
-      let targetStart = new Date ()
+      let targetStart = new Date ( )
       const selectedId = app.state.selectedEventId
 
       if ( selectedId ) {
-        const selectedEvent = app.getEvents ().find ( e => e.id === selectedId )
+        const selectedEvent = app.getEvents ( ).find ( e => e.id === selectedId )
         if ( selectedEvent ) {
           targetStart = temporalToDate ( selectedEvent.start )
         } else {
-          targetStart = new Date ( app.getCurrentDate () )
+          targetStart = new Date ( app.getCurrentDate ( ) )
         }
       } else {
-        targetStart = new Date ( app.getCurrentDate () )
+        targetStart = new Date ( app.getCurrentDate ( ) )
       }
 
       targetStart.setHours (
-        originalStart.getHours (),
-        originalStart.getMinutes (),
-        originalStart.getSeconds (),
+        originalStart.getHours ( ),
+        originalStart.getMinutes ( ),
+        originalStart.getSeconds ( ),
         0,
       )
 
       const targetEnd = new Date (
-        targetStart.getTime () + ( duration > 0 ? duration : 3600000 ),
+        targetStart.getTime ( ) + ( duration > 0 ? duration : 3600000 ),
       )
       const cleanEventData = eventData
 
       const newEvent: Event = {
         ...cleanEventData,
-        id: generateUniKey (),
+        id: generateUniKey ( ),
         start: eventData.allDay
           ? dateToPlainDate ( targetStart )
-          : dateToZonedDateTime ( targetStart, Temporal.Now.timeZoneId () ),
+          : dateToZonedDateTime ( targetStart, Temporal.Now.timeZoneId ( ) ),
         end: eventData.allDay
           ? dateToPlainDate ( targetEnd )
-          : dateToZonedDateTime ( targetEnd, Temporal.Now.timeZoneId () ),
+          : dateToZonedDateTime ( targetEnd, Temporal.Now.timeZoneId ( ) ),
         calendarId:
           eventData.calendarId &&
-          app.getCalendarRegistry ().has ( eventData.calendarId )
+          app.getCalendarRegistry ( ).has ( eventData.calendarId )
             ? eventData.calendarId
-            : app.getCalendarRegistry ().getDefaultCalendarId () || "default",
+            : app.getCalendarRegistry ( ).getDefaultCalendarId ( ) || "default",
       }
 
       app.addEvent ( newEvent )
@@ -200,10 +200,8 @@ async function handlePaste ( app: ICalendarApp ) {
   }
 }
 
-export function createKeyboardShortcutsPlugin (
-  config: KeyboardShortcutsConfig = {},
-): CalendarPlugin {
-  const { enabled = true, keyMap = {} } = config
+export const createKeyboardShortcutsPlugin = ( config: KeyboardShortcutsConfig = { } ): CalendarPlugin => {
+  const { enabled = true, keyMap = { } } = config
 
   return {
     name: "keyboard-shortcuts",
@@ -220,41 +218,41 @@ export function createKeyboardShortcutsPlugin (
 
         // 1. Search (Cmd/Ctrl + F)
         const searchKey = keyMap.search || "f"
-        if ( ( e.metaKey || e.ctrlKey ) && e.key.toLowerCase () === searchKey ) {
-          e.preventDefault ()
+        if ( ( e.metaKey || e.ctrlKey ) && e.key.toLowerCase ( ) === searchKey ) {
+          e.preventDefault ( )
           const searchInput = document.querySelector (
             "#dayflow-search-input",
           ) as HTMLElement | null
           if ( searchInput ) {
-            searchInput.focus ()
+            searchInput.focus ( )
           }
           return
         }
 
         // 2. Today (Cmd/Ctrl + T)
         const todayKey = keyMap.today || "t"
-        if ( ( e.metaKey || e.ctrlKey ) && e.key.toLowerCase () === todayKey ) {
-          e.preventDefault ()
-          app.goToToday ()
+        if ( ( e.metaKey || e.ctrlKey ) && e.key.toLowerCase ( ) === todayKey ) {
+          e.preventDefault ( )
+          app.goToToday ( )
           return
         }
 
         // 3. Quick Create (Cmd/Ctrl + N)
         const newEventKey = keyMap.newEvent || "n"
-        if ( ( e.metaKey || e.ctrlKey ) && e.key.toLowerCase () === newEventKey ) {
-          e.preventDefault ()
+        if ( ( e.metaKey || e.ctrlKey ) && e.key.toLowerCase ( ) === newEventKey ) {
+          e.preventDefault ( )
           const addBtn = document.querySelector (
             "#dayflow-add-event-btn",
           ) as HTMLElement | null
           if ( addBtn ) {
-            addBtn.click ()
+            addBtn.click ( )
           }
           return
         }
 
         // 4. Dismiss (Esc)
         if ( e.key === "Escape" ) {
-          app.dismissUI ()
+          app.dismissUI ( )
           return
         }
 
@@ -264,20 +262,20 @@ export function createKeyboardShortcutsPlugin (
           const nextKey = keyMap.next || "ArrowRight"
 
           if ( e.key === prevKey ) {
-            e.preventDefault ()
-            app.goToPrevious ()
+            e.preventDefault ( )
+            app.goToPrevious ( )
             return
           }
           if ( e.key === nextKey ) {
-            e.preventDefault ()
-            app.goToNext ()
+            e.preventDefault ( )
+            app.goToNext ( )
             return
           }
         }
 
         // 5. Tab Navigation
         if ( e.key === "Tab" ) {
-          e.preventDefault ()
+          e.preventDefault ( )
           handleTabNavigation ( app, e.shiftKey )
           return
         }
@@ -289,17 +287,17 @@ export function createKeyboardShortcutsPlugin (
           const cutKey = keyMap.cut || "x"
           const pasteKey = keyMap.paste || "v"
 
-          switch ( e.key.toLowerCase () ) {
+          switch ( e.key.toLowerCase ( ) ) {
             case undoKey: {
-              e.preventDefault ()
-              app.undo ()
+              e.preventDefault ( )
+              app.undo ( )
               break
             }
             case copyKey: {
               const selectedIdC = app.state.selectedEventId
               if ( selectedIdC ) {
                 const event = app
-                  .getEvents ()
+                  .getEvents ( )
                   .find ( ev => ev.id === selectedIdC )
                 if ( event ) {
                   try {
@@ -318,7 +316,7 @@ export function createKeyboardShortcutsPlugin (
               const selectedIdX = app.state.selectedEventId
               if ( selectedIdX ) {
                 const event = app
-                  .getEvents ()
+                  .getEvents ( )
                   .find ( ev => ev.id === selectedIdX )
                 if ( event ) {
                   try {
@@ -362,6 +360,6 @@ export function createKeyboardShortcutsPlugin (
 
       // Cleanup is tricky for plugins as there's no uninstall yet in DayFlow core,
       // but we can store it or just let it live with the app instance.
-    },
+    }
   }
 }

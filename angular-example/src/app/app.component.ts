@@ -1,7 +1,7 @@
 import { Component, signal, ChangeDetectionStrategy, OnDestroy, OnInit, viewChild } from "@angular/core"
 import { ThemeToggleComponent } from "./theme-toggle/theme-toggle.component"
 import { createDragPlugin } from "../../../packages/plugins/drag/dist"
-import { createKeyboardShortcutsPlugin } from "../../../packages/plugins/keyboard-shortcuts/dist"
+import { createKeyboardShortcutsPlugin } from "./lib/plugins/keyboard-shortcuts"
 import { createSidebarPlugin } from "../../../packages/plugins/sidebar"
 import {
   Event,

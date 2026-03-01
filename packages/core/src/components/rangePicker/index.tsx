@@ -10,7 +10,7 @@ import {
 import { Temporal } from "temporal-polyfill";
 
 import { MoveRight } from "@/components/common/Icons";
-import { getMonthLabels, getWeekDaysLabels } from "@/locale";
+import { getMonthLabels, getWeekDaysLabels } from "@/utils/labelUtils";
 import {
   mergeFormatTemplate,
   buildParseRegExp,

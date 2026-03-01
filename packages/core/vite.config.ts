@@ -47,7 +47,6 @@ export default defineConfig({
       "preact/debug": resolve(workspaceRoot, "node_modules/preact/debug"),
       preact: resolve(workspaceRoot, "node_modules/preact"),
       react: resolve(workspaceRoot, "node_modules/preact/compat"),
-      "react-dom": resolve(workspaceRoot, "node_modules/preact/compat"),
       "react/jsx-runtime": resolve(
         workspaceRoot,
         "node_modules/preact/compat/jsx-runtime",

@@ -46,9 +46,6 @@ Thumbs.db
 *.tsbuildinfo
 next-env.d.ts
 
-# Turbo
-.turbo/
-
 /bundle-analysis.html
 
 # IDEs and editors

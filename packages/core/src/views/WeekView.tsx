@@ -27,7 +27,7 @@ import {
 } from "@/types";
 import { formatTime, extractHourFromDate } from "@/utils";
 import { temporalToDate } from "@/utils/temporal";
-import { getWeekDaysLabels } from "@/locale";
+import { getWeekDaysLabels } from "@/utils/labelUtils";
 
 const WeekView = ({
   app,

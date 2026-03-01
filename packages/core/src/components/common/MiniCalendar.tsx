@@ -1,6 +1,6 @@
 import { useMemo } from "preact/hooks";
 
-import { getWeekDaysLabels } from "@/locale";
+import { getWeekDaysLabels } from "@/utils/labelUtils";
 import {
   miniCalendarDay,
   miniCalendarDayHeader,
@@ -19,7 +19,6 @@ interface MiniCalendarProps {
   showHeader?: boolean;
   onMonthChange: (offset: number) => void;
   onDateSelect: (date: Date) => void;
-  locale?: string;
 }
 
 export const MiniCalendar = ({

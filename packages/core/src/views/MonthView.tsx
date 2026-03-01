@@ -27,7 +27,7 @@ import {
 import { Event, MonthEventDragState, ViewType, MonthViewProps } from "@/types";
 import { extractHourFromDate } from "@/utils";
 import { temporalToDate } from "@/utils/temporal";
-import { getMonthLabels, getWeekDaysLabels } from "@/locale";
+import { getMonthLabels, getWeekDaysLabels } from "@/utils/labelUtils";
 
 const MonthView = ({
   app,
