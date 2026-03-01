@@ -1,10 +1,10 @@
 import {
   useDragProps,
   useDragReturn,
-  ViewType,
-  getLineColor,
-} from "@dayflow/core"
-import { defaultDragConfig } from "@drag/utils/defaultDragConfig"
+  ViewType
+} from "@/types"
+import { getLineColor } from "@/utils"
+import { defaultDragConfig } from "../utils/defaultDragConfig"
 import { useMemo } from "preact/hooks"
 
 import { useDragCommon } from "./useDragCommon"

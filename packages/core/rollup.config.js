@@ -1,12 +1,10 @@
 import path from "node:path";
 
-import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import { dts } from "rollup-plugin-dts";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import { visualizer } from "rollup-plugin-visualizer";
 
 export default [
   {
@@ -28,7 +26,6 @@ export default [
           "@": path.resolve("./src"),
         },
       }),
-      commonjs(),
       typescript({
         tsconfig: "./tsconfig.build.json",
         declaration: false,
@@ -40,14 +37,7 @@ export default [
           "**/*.spec.tsx",
         ],
       }),
-      terser(),
-      visualizer({
-        filename: "bundle-analysis.html",
-        open: false,
-        gzipSize: true,
-        brotliSize: true,
-        template: "treemap",
-      }),
+      terser()
     ],
     external: [
       "preact",

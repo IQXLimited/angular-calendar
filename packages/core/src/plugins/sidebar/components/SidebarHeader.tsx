@@ -1,10 +1,12 @@
 import {
-  PanelRightClose,
-  PanelRightOpen,
   sidebarHeader,
   sidebarHeaderToggle,
-  sidebarHeaderTitle,
-} from "@dayflow/core";
+  sidebarHeaderTitle
+} from "@/styles/classNames"
+import {
+  PanelRightClose,
+  PanelRightOpen,
+} from "@/components/common/Icons"
 
 interface SidebarHeaderProps {
   isCollapsed: boolean;

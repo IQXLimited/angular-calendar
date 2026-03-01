@@ -1,4 +1,4 @@
-import { getLineColor } from "@dayflow/core"
+import { getLineColor } from "@/utils"
 
 export const defaultDragConfig = {
   HOUR_HEIGHT: 72,

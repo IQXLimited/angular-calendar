@@ -1,7 +1,7 @@
 import {
   DragIndicatorProps,
   DragIndicatorRenderer
-} from "@dayflow/core";
+} from "@/types";
 
 import { DefaultDragIndicatorRenderer } from "./DefaultDragIndicator";
 

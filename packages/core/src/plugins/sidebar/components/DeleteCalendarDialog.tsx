@@ -1,8 +1,8 @@
 import {
-  createPortal,
-  CalendarType,
-  cancelButton
-} from "@dayflow/core";
+  CalendarType
+} from "@/types";
+import { cancelButton } from "@/styles/classNames";
+import { createPortal } from "preact/compat";
 import { useState } from "preact/hooks";
 
 interface DeleteCalendarDialogProps {

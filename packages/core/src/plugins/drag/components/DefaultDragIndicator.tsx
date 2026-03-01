@@ -1,4 +1,4 @@
-import { DragIndicatorRenderer } from "@dayflow/core";
+import { DragIndicatorRenderer } from "@/types";
 
 const eventColorBar =
   "df-event-color-bar absolute left-1 top-1 bottom-1 w-[3px] rounded-full";

@@ -1,4 +1,5 @@
-import { Event, daysDifference } from "@dayflow/core";
+import { Event } from "@/types";
+import { daysDifference } from "@/utils";
 
 const CalendarIcon = ({ className }: { className?: string }) => (
   <svg

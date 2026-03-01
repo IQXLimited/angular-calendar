@@ -1,10 +1,12 @@
 import {
   useDragProps,
   ViewType,
-  UseDragCommonReturn,
+  UseDragCommonReturn
+} from "@/types"
+import {
   daysDifference as utilsDaysDifference,
   addDays as utilsAddDays,
-} from "@dayflow/core"
+} from "@/utils"
 // Shared utility hook providing common utility functions for drag operations
 import { useCallback, useMemo } from "preact/hooks"
 

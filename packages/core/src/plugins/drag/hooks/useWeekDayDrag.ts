@@ -2,10 +2,9 @@ import {
   ViewType,
   UseWeekDayDragParams,
   UseWeekDayDragReturn,
-  Event,
-  getDateByDayIndex,
-  dateToPlainDate,
-} from "@dayflow/core"
+  Event
+} from "@/types"
+import { getDateByDayIndex, dateToPlainDate } from "@/utils"
 // Week/Day view specific implementation
 import { useCallback } from "preact/hooks"
 

@@ -1,4 +1,3 @@
-// oxlint-disable typescript/no-explicit-any
 import {
   MonthDragState,
   UnifiedDragRef,
@@ -7,8 +6,8 @@ import {
   WeekDayDragState,
   UseDragStateReturn,
   Event as CalendarEvent,
-} from "@dayflow/core"
-import { throttle } from "@drag/utils/throttle"
+} from "@/types"
+import { throttle } from "../utils/throttle"
 import { useRef, useCallback, useState, useMemo } from "preact/hooks"
 
 export const useDragState = ( options: useDragProps ): UseDragStateReturn => {

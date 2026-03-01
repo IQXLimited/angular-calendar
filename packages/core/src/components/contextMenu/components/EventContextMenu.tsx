@@ -64,7 +64,6 @@ const EventContextMenu = ({
   };
 
   // Custom user slot
-  // oxlint-disable-next-line typescript/no-explicit-any
   const callbacks = (app as any).callbacks;
   const customContent = callbacks?.renderEventContextMenu?.(
     event,

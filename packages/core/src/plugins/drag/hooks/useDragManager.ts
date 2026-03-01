@@ -4,14 +4,11 @@ import {
   UnifiedDragRef,
   useDragProps,
   ViewType,
-  UseDragManagerReturn,
-  getSelectedBgColor,
-  getEventTextColor,
-  formatTime,
-  dateToZonedDateTime,
-} from "@dayflow/core"
-import DragIndicatorComponent from "@drag/components/DragIndicatorComponent"
-import MonthDragIndicatorComponent from "@drag/components/MonthDragIndicator"
+  UseDragManagerReturn
+} from "@/types"
+import { getSelectedBgColor, getEventTextColor, formatTime, dateToZonedDateTime } from "@/utils"
+import DragIndicatorComponent from "../components/DragIndicatorComponent"
+import MonthDragIndicatorComponent from "../components/MonthDragIndicator"
 import { h, render } from "preact"
 import { useRef, useCallback } from "preact/hooks"
 

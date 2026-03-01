@@ -1,4 +1,4 @@
-import { cancelButton } from "@dayflow/core";
+import { cancelButton } from "@/styles/classNames";
 
 interface MergeCalendarDialogProps {
   sourceName: string;

@@ -5,7 +5,9 @@ import {
   ViewType,
   WeekDayDragState,
   UseDragHandlersReturn,
-  UseDragHandlersParams,
+  UseDragHandlersParams
+} from "@/types"
+import {
   roundToTimeStep,
   TIME_STEP,
   getDateByDayIndex,
@@ -15,8 +17,8 @@ import {
   getEventEndHour,
   temporalToDate,
   dateToZonedDateTime,
-  dateToPlainDate,
-} from "@dayflow/core"
+  dateToPlainDate
+} from "@/utils"
 import { useCallback } from "preact/hooks"
 import { Temporal } from "temporal-polyfill"
 

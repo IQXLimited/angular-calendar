@@ -1,8 +1,6 @@
-import {
-  createPortal,
-  ChevronRight,
-  CalendarType
-} from "@dayflow/core";
+import { ChevronRight } from "@/components/common/Icons";
+import { CalendarType } from "@/types";
+import { createPortal } from "preact/compat";
 import { useState, useRef, useEffect } from "preact/hooks";
 
 interface MergeMenuItemProps {

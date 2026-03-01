@@ -44,7 +44,6 @@ interface EventContentProps {
     dayIndex?: number;
   };
   customRenderingStore: CustomRenderingStore | null;
-  // oxlint-disable-next-line typescript/no-explicit-any
   eventContentSlotArgs: any;
   layout?: EventLayout;
 }

@@ -1,14 +1,5 @@
-// oxlint-disable typescript/no-explicit-any
-import {
-  registerDragImplementation,
-  CalendarPlugin,
-  ICalendarApp,
-  ViewType,
-  DragHookOptions,
-  DragHookReturn,
-  DragPluginConfig,
-  DragService,
-} from "@dayflow/core"
+import { CalendarPlugin, ICalendarApp, ViewType, DragHookOptions, DragHookReturn, DragPluginConfig, DragService } from "@/types"
+import { registerDragImplementation } from "../dragBridge"
 
 import { useDrag } from "./hooks"
 

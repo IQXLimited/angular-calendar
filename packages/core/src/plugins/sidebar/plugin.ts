@@ -3,15 +3,23 @@ import {
   ICalendarApp,
   CalendarType,
   TNode,
-  CreateCalendarDialogProps,
-  registerSidebarImplementation,
+  CreateCalendarDialogProps
+} from "@/types"
+import {
+  CreateCalendarDialog
+} from "@/components/common/CreateCalendarDialog"
+import { ContentSlot } from "@/renderer/ContentSlot"
+
+import {
   SidebarBridgeReturn,
+  registerSidebarImplementation
+} from "../sidebarBridge"
+
+import {
   normalizeCssWidth,
-  getCalendarColorsForHex,
-  generateUniKey,
-  ContentSlot,
-  CreateCalendarDialog,
-} from "@dayflow/core"
+  generateUniKey
+} from "@/utils"
+import { getCalendarColorsForHex } from "@/core/calendarRegistry";
 import { h } from "preact"
 import { useState, useCallback, useMemo, useEffect } from "preact/hooks"
 

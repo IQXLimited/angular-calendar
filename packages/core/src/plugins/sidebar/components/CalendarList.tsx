@@ -1,4 +1,4 @@
-import { CalendarType } from "@dayflow/core";
+import { CalendarType } from "@/types";
 import { JSX } from "preact";
 import { useState, useCallback, useRef, useEffect } from "preact/hooks";
 

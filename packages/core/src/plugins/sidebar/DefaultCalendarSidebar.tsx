@@ -3,23 +3,29 @@ import {
   lightnessToSliderValue,
 } from "@dayflow/blossom-color-picker";
 import {
-  createPortal,
-  Event as CalendarEvent,
+  Event as CalendarEvent
+} from "@/types";
+import { createPortal } from "preact/compat";
+import {
   ContextMenu,
   ContextMenuItem,
   ContextMenuSeparator,
   ContextMenuLabel,
   ContextMenuColorPicker,
-  getCalendarColorsForHex,
-  BlossomColorPicker,
-  ContentSlot,
-  DefaultColorPicker,
-  MiniCalendar,
-  sidebarContainer,
+} from "@/components/contextMenu";
+import {
   importICSFile,
   downloadICS,
-  generateUniKey,
-} from "@dayflow/core";
+  generateUniKey
+} from "@/utils"
+import {
+  sidebarContainer
+} from "@/styles/classNames"
+import { getCalendarColorsForHex } from "@/core/calendarRegistry";
+import { ContentSlot } from "@/renderer/ContentSlot";
+import { MiniCalendar } from "@/components/common/MiniCalendar";
+import { DefaultColorPicker } from "@/components/common/DefaultColorPicker";
+import { BlossomColorPicker } from "@/components/common/BlossomColorPicker";
 import { JSX } from "preact";
 import { useCallback, useState, useRef } from "preact/hooks";
 

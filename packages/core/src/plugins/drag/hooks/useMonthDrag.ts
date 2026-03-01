@@ -1,4 +1,4 @@
-import { UseMonthDragParams, UseMonthDragReturn } from "@dayflow/core"
+import { UseMonthDragParams, UseMonthDragReturn } from "@/types"
 
 export const useMonthDrag = (
   params: UseMonthDragParams,
