@@ -2,7 +2,7 @@
 
 A lightweight and elegant Angular calendar component built with Preact and Tailwind CSS. This project was originally forked from:
 
-https://github.com/dayflow-js/calendar
+https://github.com/mattfrank48/calendar
 
 ## Overview
 
@@ -126,7 +126,7 @@ export class DashboardComponent {}
 |--------------------------------------|----------------------|-----------------------|
 | `^1.0.0`                            | `>=21.0.0`   | Partial (experimental)|
 
-> **Note:** For best results, use the latest version with Angular v16+ for optimal standalone and performance benefits.
+> **Note:** For best results, use the latest version with Angular v21+ for optimal standalone and performance benefits.
 
 ---
 
