@@ -39,7 +39,7 @@ https://github.com/dayflow-js/calendar
 Install via npm:
 
 ```bash
-npm install @mattfrank48/angular-calendar
+npm install @iqx-limited/angular-calendar
 ```
 
 Peer dependencies required:
@@ -61,7 +61,7 @@ npm install preact tailwindcss
 Import the standalone component and use it directly in your component:
 
 ```typescript
-import { CalendarComponent } from '@mattfrank48/angular-calendar';
+import { CalendarComponent } from '@iqx-limited/angular-calendar';
 
 // In your component metadata or routing config
 @Component({
@@ -107,7 +107,7 @@ Angular Calendar is built as a **standalone component**. To use it:
 **Example integration:**
 
 ```typescript
-import { CalendarComponent } from '@mattfrank48/angular-calendar';
+import { CalendarComponent } from '@iqx-limited/angular-calendar';
 
 @Component({
   standalone: true,

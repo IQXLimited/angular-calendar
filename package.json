@@ -1,5 +1,5 @@
 {
-  "name": "@mattfrank48/angular-calendar",
+  "name": "@iqx-limited/angular-calendar",
   "version": "0.0.1",
   "description": "A lightweight and elegant Angular calendar component built with Preact and Tailwind CSS.",
   "license": "MIT",

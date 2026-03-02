@@ -89,7 +89,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./dist/@mattfrank48/angular-calendar/browser
+          path: ./dist/@iqx-limited/angular-calendar/browser
 
       - name: Deploy to GitHub Pages
         id: deployment
