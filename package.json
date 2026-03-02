@@ -22,19 +22,18 @@
     "lint:fix": "npx --yes eslint --fix",
     "tsc-verify": "tsc --noEmit"
   },
-  "main": "dist/fesm2022/dayflow-angular.mjs",
-  "module": "dist/fesm2022/dayflow-angular.mjs",
-  "typings": "dist/index.d.ts",
+  "main": "dist/fesm2022/iqx-limited-angular-calendar.mjs",
+  "module": "dist/fesm2022/iqx-limited-angular-calendar.mjs",
+  "typings": "dist/types/iqx-limited-angular-calendar.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/fesm2022/dayflow-angular.mjs",
-      "default": "./dist/fesm2022/dayflow-angular.mjs"
+      "types": "./dist/types/iqx-limited-angular-calendar.d.ts",
+      "import": "./dist/fesm2022/iqx-limited-angular-calendar.mjs",
+      "default": "./dist/fesm2022/iqx-limited-angular-calendar.mjs"
     },
     "./styles.css": "./dist/styles/styles.css"
   },
   "type": "module",
-  "private": true,
   "devDependencies": {
     "@angular/build": "^21.2.0",
     "@angular/cli": "^21.2.0",
