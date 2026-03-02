@@ -12,7 +12,7 @@ import {
   CalendarType,
   EventChange,
   CalendarApp
-} from "./lib/core/dist"
+} from "react-core"
 import { createKeyboardShortcutsPlugin } from "./lib/plugins/keyboard-shortcuts"
 import { CalendarComponent } from "./public-api"
 import { getWebsiteCalendars } from "./utils/palette"
@@ -51,16 +51,20 @@ import { generateSampleEvents } from "./utils/sampleData"
 
   private initializeCalendar ( ) {
     this.calendar.set ( new CalendarApp ( {
-      views: [
+      views: this.isMobile ( ) ? [
+        createDayView ( ),
+        createWeekView ( ),
+        createYearView ( { mode: "year-canvas" } )
+      ] : [
         createDayView ( ),
         createWeekView ( ),
         createMonthView ( ),
-        createYearView ( { mode: "fixed-week" } )
+        createYearView ( { mode: "year-canvas" } )
       ],
       events: this.events ( ),
       calendars: getWebsiteCalendars ( ),
       defaultCalendar: "work",
-      plugins: [
+      plugins: this.isMobile ( ) ? [ ] : [
         createDragPlugin ( ),
         createKeyboardShortcutsPlugin ( ),
         createSidebarPlugin ( {
@@ -68,7 +72,7 @@ import { generateSampleEvents } from "./utils/sampleData"
           colorPickerMode: "default"
         } )
       ],
-      defaultView: ViewType.MONTH,
+      defaultView: this.isMobile ( ) ? ViewType.WEEK : ViewType.MONTH,
       theme: { mode: "auto" },
       callbacks: {
         onEventCreate: async ( event: Event ) => {

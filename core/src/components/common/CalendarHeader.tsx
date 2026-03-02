@@ -87,7 +87,7 @@ const CalendarHeader = ({
           onContextMenu={(e) => e.preventDefault()}
         >
           {/* Left Section: Add Calendar Button Only */}
-          <div className="df-header-left mb-1 flex items-center">
+          {/* <div className="df-header-left mb-1 flex items-center">
             {onAddCalendar && isEditable && (
               <button
                 type="button"
@@ -103,10 +103,11 @@ const CalendarHeader = ({
                 <Plus className={`h-4 w-4 ${textGray500}`} />
               </button>
             )}
-          </div>
+          </div> */}
 
           {/* Middle Section: ViewSwitcher (if mode is buttons) */}
-          <div className="df-header-mid flex flex-1 justify-center">
+          {/* <div className="df-header-mid flex flex-1 justify-center"> */}
+          <div className={`df-header-left flex flex-1 items-center`}>
             {isSwitcherCentered && (
               <ViewSwitcher mode={switcherMode} calendar={calendar} />
             )}

@@ -9,7 +9,7 @@ import {
   dateToZonedDateTime,
   dateToPlainDate,
   getWeekRange,
-} from "../../core/dist"
+} from "react-core"
 import { Temporal } from "temporal-polyfill"
 
 export interface KeyboardShortcutsConfig {

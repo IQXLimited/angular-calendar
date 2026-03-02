@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "@iqx-limited/angular-calendar": {
+    "@mattfrank48/angular-calendar": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -78,10 +78,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "@iqx-limited/angular-calendar:build:production"
+              "buildTarget": "@mattfrank48/angular-calendar:build:production"
             },
             "development": {
-              "buildTarget": "@iqx-limited/angular-calendar:build:development"
+              "buildTarget": "@mattfrank48/angular-calendar:build:development"
             }
           },
           "defaultConfiguration": "development"

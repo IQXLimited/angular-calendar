@@ -1,4 +1,4 @@
-import { CalendarType, CalendarColors } from "../lib/core/dist"
+import { CalendarType, CalendarColors } from "react-core"
 
 interface PaletteCalendar extends Pick<CalendarType, "id" | "name" | "icon"> {
   color: string

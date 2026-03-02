@@ -4,4 +4,4 @@
 
 export * from "./lib/calendar.component"
 export * from "./lib/portal.directive"
-export * from "./lib/core/dist"
+export * from "react-core"

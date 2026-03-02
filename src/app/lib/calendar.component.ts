@@ -11,7 +11,7 @@ import {
 } from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { PortalDirective } from "./portal.directive" // adjust path
-import { UseCalendarAppReturn, ICalendarApp, CalendarAppConfig, CustomRendering, CalendarApp, CalendarRenderer } from "../lib/core/dist"
+import { UseCalendarAppReturn, ICalendarApp, CalendarAppConfig, CustomRendering, CalendarApp, CalendarRenderer } from "react-core"
 
 @Component ( {
   selector: "app-calendar",
