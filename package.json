@@ -6,12 +6,15 @@
   "author": "IQX",
   "repository": "https://github.com/mattfrank48/angular-calendar",
   "files": [
-    "dist/**/*",
+    "fesm2022/**/*",
+    "styles/**/*",
+    "types/**/*",
+    ".npmignore",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build:core": "npm run clean && npm i && cd core && tsc -p tsconfig.build.json && rollup -c && rimraf dist/types && mkdir -p ../react-core && cp -r dist/* ../react-core/ && rimraf dist && cp package.json ../react-core/",
+    "build:core": "npm i && npm run clean && npm i && cd core && tsc -p tsconfig.build.json && rollup -c && rimraf dist/types && node -e \"const fs=require('fs'); fs.mkdirSync('../react-core',{recursive:true}); fs.cpSync('dist','../react-core',{recursive:true}); fs.copyFileSync('package.json','../react-core/package.json');\" && rimraf dist",
     "build:css": "node ./styles/build-css.mjs",
     "build:demo": "ng build --configuration=production --no-progress --base-href 'https://iqxlimited.github.io/angular-calendar/'",
     "prestart": "npm run build:core && npm i && npm run build:css",
