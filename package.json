@@ -37,10 +37,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@dayflow/blossom-color-picker": "^2.0.1",
-    "preact": "^10.28.4",
-    "react-core": "file:./react-core",
-    "temporal-polyfill": "^0.3.0"
+    "react-core": "file:./react-core"
   },
   "devDependencies": {
     "@angular/build": "^21.2.0",
@@ -77,7 +74,11 @@
   },
   "peerDependencies": {
     "@angular/common": ">=21.0.0",
-    "@angular/core": ">=21.0.0"
+    "@angular/core": ">=21.0.0",
+    "@dayflow/blossom-color-picker": "^2.0.1",
+    "preact": "^10.28.4",
+    "react-core": "file:./react-core",
+    "temporal-polyfill": "^0.3.0"
   },
   "volta": {
     "node": "24.14.0"
